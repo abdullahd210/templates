@@ -1,0 +1,72 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222 47% 11%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+
+    /* Deep blue */
+    --primary: 217 78% 20%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Bright blue */
+    --secondary: 222 100% 60%;
+    --secondary-foreground: 0 0% 100%;
+
+    /* Orange — reserved for conversion CTAs only */
+    --accent: 21 100% 59%;
+    --accent-foreground: 0 0% 100%;
+
+    --muted: 214 32% 96%;
+    --muted-foreground: 215 16% 40%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 214 32% 90%;
+    --input: 214 32% 90%;
+    --ring: 222 100% 60%;
+
+    --radius: 0.75rem;
+  }
+
+  .dark {
+    --background: 222 47% 7%;
+    --foreground: 210 40% 98%;
+    --card: 222 44% 10%;
+    --card-foreground: 210 40% 98%;
+    --primary: 217 78% 55%;
+    --primary-foreground: 222 47% 7%;
+    --secondary: 222 100% 65%;
+    --secondary-foreground: 222 47% 7%;
+    --accent: 21 100% 62%;
+    --accent-foreground: 222 47% 7%;
+    --muted: 217 33% 17%;
+    --muted-foreground: 215 20% 65%;
+    --destructive: 0 63% 45%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 217 33% 20%;
+    --input: 217 33% 20%;
+    --ring: 222 100% 65%;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+}
+
+/*
+ * RTL note: components must use logical-property utilities (ps-, pe-, ms-, me-,
+ * text-start, text-end, rounded-s, rounded-e) instead of physical left/right
+ * ones, so the layout mirrors correctly when <html dir="rtl"> (Arabic).
+ */
