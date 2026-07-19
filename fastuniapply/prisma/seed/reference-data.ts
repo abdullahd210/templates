@@ -1,3 +1,5 @@
+import { ROLE_KEYS, ROLE_NAMES, PERMISSION_KEYS, ROLE_PERMISSIONS } from "../../src/lib/rbac-constants";
+
 export const documentTypesSeed = [
   { key: "passport", requiresExpiration: true, sortOrder: 1 },
   { key: "personal_photo", requiresExpiration: false, sortOrder: 2 },
@@ -32,45 +34,9 @@ export const leadSourcesSeed = [
   { key: "manual_entry", name: "Manual Entry" },
 ] as const;
 
-export const rolesSeed = [
-  { key: "super_admin", name: "Super Administrator" },
-  { key: "general_manager", name: "General Manager" },
-  { key: "operations_manager", name: "Operations Manager" },
-  { key: "consultant", name: "Educational Consultant" },
-  { key: "admissions_officer", name: "Admissions Officer" },
-  { key: "sales_representative", name: "Sales Representative" },
-  { key: "marketing_manager", name: "Marketing Manager" },
-  { key: "content_editor", name: "Content Editor" },
-  { key: "finance_officer", name: "Finance Officer" },
-  { key: "student_support_officer", name: "Student Support Officer" },
-  { key: "quality_analytics_officer", name: "Quality and Analytics Officer" },
-  { key: "student", name: "Student" },
-  { key: "partner_rep", name: "University Partner Representative" },
-  { key: "agent", name: "Educational Agent" },
-] as const;
-
-// Module.action — enforced server-side per docs/02-roles-and-permissions.md.
-export const permissionsSeed = [
-  "leads.manage",
-  "leads.view_own",
-  "students.manage",
-  "students.view_own",
-  "applications.manage",
-  "applications.view_own",
-  "applications.update_status",
-  "documents.verify",
-  "documents.upload_own",
-  "universities.manage",
-  "programs.manage",
-  "scholarships.manage",
-  "content.manage",
-  "staff.manage",
-  "roles.manage",
-  "finance.manage",
-  "finance.view_own",
-  "reports.view",
-  "reports.view_own",
-  "activity_logs.view",
-  "messaging.manage",
-  "appointments.manage",
-] as const;
+// Roles, permissions, and the role -> permission bootstrap all come from
+// src/lib/rbac-constants.ts so the seeded DB state and the runtime RBAC
+// checks in src/server/auth/rbac.ts can never drift apart.
+export const rolesSeed = ROLE_KEYS.map((key) => ({ key, name: ROLE_NAMES[key] }));
+export const permissionsSeed = PERMISSION_KEYS;
+export const rolePermissionMap: Record<string, readonly string[]> = ROLE_PERMISSIONS;

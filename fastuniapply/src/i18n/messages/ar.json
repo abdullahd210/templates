@@ -60,5 +60,24 @@
     "sortBy": "الترتيب حسب",
     "currency": "العملة",
     "language": "اللغة"
+  },
+  "auth": {
+    "loginTitle": "تسجيل الدخول إلى FastUniApply",
+    "loginSubtitle": "تابع طلباتك ومستنداتك واستشاراتك.",
+    "registerTitle": "أنشئ حساب FastUniApply الخاص بك",
+    "registerSubtitle": "ابدأ باكتشاف الجامعات وتتبع طلباتك.",
+    "fullName": "الاسم الكامل",
+    "email": "البريد الإلكتروني",
+    "password": "كلمة المرور",
+    "confirmPassword": "تأكيد كلمة المرور",
+    "termsAgreement": "أوافق على الشروط والأحكام وسياسة الخصوصية.",
+    "signIn": "تسجيل الدخول",
+    "signingIn": "جارٍ تسجيل الدخول…",
+    "createAccount": "إنشاء حساب",
+    "creatingAccount": "جارٍ إنشاء الحساب…",
+    "noAccount": "ليس لديك حساب؟",
+    "createOne": "أنشئ حسابًا",
+    "haveAccount": "لديك حساب بالفعل؟",
+    "invalidCredentials": "البريد الإلكتروني أو كلمة المرور غير صحيحة."
   }
 }

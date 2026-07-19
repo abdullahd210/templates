@@ -4,6 +4,9 @@ import { NextIntlClientProvider } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { locales, isRtl, type AppLocale } from "@/i18n/config";
+import { auth } from "@/server/auth";
+import { SessionProvider } from "@/components/providers/session-provider";
+import { Toaster } from "@/components/ui/toaster";
 import "@/styles/globals.css";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
@@ -50,14 +53,17 @@ export default async function LocaleLayout({
   }
 
   setRequestLocale(locale);
-  const messages = await getMessages();
+  const [messages, session] = await Promise.all([getMessages(), auth()]);
   const dir = isRtl(locale) ? "rtl" : "ltr";
 
   return (
     <html lang={locale} dir={dir} className={`${inter.variable} ${sora.variable}`}>
       <body className="font-sans antialiased">
         <NextIntlClientProvider locale={locale} messages={messages}>
-          {children}
+          <SessionProvider session={session}>
+            {children}
+            <Toaster />
+          </SessionProvider>
         </NextIntlClientProvider>
       </body>
     </html>

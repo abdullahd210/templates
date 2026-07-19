@@ -60,5 +60,24 @@
     "sortBy": "Sıralama",
     "currency": "Para birimi",
     "language": "Dil"
+  },
+  "auth": {
+    "loginTitle": "FastUniApply'a giriş yap",
+    "loginSubtitle": "Başvurularını, belgelerini ve danışmanlıklarını takip et.",
+    "registerTitle": "FastUniApply hesabı oluştur",
+    "registerSubtitle": "Üniversiteleri keşfetmeye ve başvurularını takip etmeye başla.",
+    "fullName": "Ad Soyad",
+    "email": "E-posta",
+    "password": "Şifre",
+    "confirmPassword": "Şifreyi onayla",
+    "termsAgreement": "Kullanım Koşulları ve Gizlilik Politikası'nı kabul ediyorum.",
+    "signIn": "Giriş Yap",
+    "signingIn": "Giriş yapılıyor…",
+    "createAccount": "Hesap Oluştur",
+    "creatingAccount": "Hesap oluşturuluyor…",
+    "noAccount": "Hesabın yok mu?",
+    "createOne": "Hesap oluştur",
+    "haveAccount": "Zaten hesabın var mı?",
+    "invalidCredentials": "Geçersiz e-posta veya şifre."
   }
 }

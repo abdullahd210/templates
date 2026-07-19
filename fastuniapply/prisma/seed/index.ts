@@ -4,29 +4,10 @@ import { countriesSeed, citiesSeed } from "./countries";
 import { universitiesSeed } from "./universities";
 import { scholarshipsSeed } from "./scholarships";
 import { articleCategoriesSeed, articlesSeed } from "./articles";
-import { documentTypesSeed, leadSourcesSeed, rolesSeed, permissionsSeed } from "./reference-data";
+import { documentTypesSeed, leadSourcesSeed, rolesSeed, permissionsSeed, rolePermissionMap } from "./reference-data";
 import { testimonialsSeed } from "./testimonials";
 
 const prisma = new PrismaClient();
-
-// Coarse role → permission bootstrap. The Admin > Roles module lets Super
-// Administrators fine-tune this later (docs/02-roles-and-permissions.md §3).
-const rolePermissionMap: Record<string, string[]> = {
-  super_admin: [...permissionsSeed],
-  general_manager: ["reports.view", "activity_logs.view"],
-  operations_manager: ["leads.manage", "students.manage", "applications.manage", "reports.view"],
-  consultant: ["leads.view_own", "students.view_own", "applications.view_own", "messaging.manage", "appointments.manage"],
-  admissions_officer: ["applications.view_own", "applications.update_status", "documents.verify"],
-  sales_representative: ["leads.view_own"],
-  marketing_manager: ["content.manage", "reports.view_own"],
-  content_editor: ["content.manage"],
-  finance_officer: ["finance.manage"],
-  student_support_officer: ["messaging.manage", "appointments.manage"],
-  quality_analytics_officer: ["reports.view"],
-  student: ["applications.view_own", "documents.upload_own", "finance.view_own"],
-  partner_rep: ["applications.view_own"],
-  agent: ["leads.view_own", "applications.view_own", "finance.view_own"],
-};
 
 async function seedReferenceData() {
   await prisma.documentType.createMany({

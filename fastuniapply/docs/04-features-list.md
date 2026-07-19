@@ -1,79 +1,57 @@
 # Feature Inventory
 
-Legend: ✅ target for MVP slice (built in this initial implementation pass) · 🧱 schema/API
-scaffolded, UI stubbed · 🗺️ planned, documented only (built in a later roadmap phase)
+Legend: ✅ built and verified · 🧱 data model/API surface ready, UI not yet built ·
+🗺️ planned, documented only
 
-## Public Website
-- ✅ Homepage (hero, search, CTAs, stats, featured universities/programs/scholarships,
+This reflects **actual implementation state**, checked against the codebase — not an
+aspirational target. See `08-development-roadmap.md` for which phase builds each 🗺️/🧱 item.
+
+## Public Website (Phase 3)
+- ✅ Minimal infrastructure shell page (proves layout/i18n/auth render correctly)
+- 🗺️ Homepage (hero, search, CTAs, stats, featured universities/programs/scholarships,
   how-it-works, testimonials, partner logos, articles, FAQ, lead form, newsletter, WA button)
-- ✅ University directory + filters + cards
-- ✅ University details page
-- ✅ Program directory + filters
-- ✅ Program details page
-- 🧱 Program comparison (up to 4)
-- ✅ Scholarship directory + details
-- ✅ Study destination pages (11 countries)
-- ✅ Articles index + details (categories, TOC, related content, sharing)
-- 🧱 Multi-step application wizard (14 steps, save & resume)
-- ✅ Free consultation form
-- ✅ Contact page
-- 🗺️ Success stories, partnerships, become-a-partner/agent, careers, events
-- ✅ FAQ page
-- ✅ Legal pages (privacy, terms, cookies, refund, service agreement)
-- ✅ Global search
-- ✅ Language selector (en/ar/tr) with RTL for Arabic
+- 🗺️ University directory + filters + cards, University details page
+- 🗺️ Program directory + filters + details page, Program comparison
+- 🗺️ Scholarship directory + details
+- 🗺️ Study destination pages (11 countries)
+- 🗺️ Articles index + details
+- 🗺️ Free consultation form, Contact page, FAQ page, legal pages, global search
+- ✅ Language selector (en/ar/tr) with full RTL for Arabic — implemented and verified
+  on every page built so far (shell, header, footer, login, register)
 
-## Auth
-- ✅ Registration, login, logout
-- ✅ Email verification
-- ✅ Password reset
-- 🗺️ Staff 2FA (TOTP)
+## Auth (Phase 1 — this delivery)
+- ✅ Registration, login (Auth.js Credentials provider + Prisma adapter, JWT sessions)
+- ✅ Role & permission architecture (`src/lib/rbac-constants.ts`,
+  `src/server/auth/rbac.ts`): 14 roles, 22 permissions, `hasRole`/`hasPermission`/
+  `requirePermission`/`canAccessOwned` helpers
+- 🗺️ Email verification sending, password reset flow, logout UI, staff 2FA (TOTP) —
+  schema and error-handling scaffolding are in place; sending/flows are Phase 4
 
-## Student Dashboard
-- ✅ Overview
-- ✅ Profile
-- ✅ Applications list/detail/timeline
-- 🧱 Documents Center (upload/preview/download/replace/delete/verification status)
-- 🧱 Offers & acceptances
-- 🧱 Payments & invoices (proof-of-payment upload; no live PSP in v1)
-- 🧱 Messages/support tickets
-- 🧱 Appointments
-- ✅ Favorites
-- ✅ Notifications (in-app; email templates defined, sending stubbed behind an
-  `EmailProvider` interface)
+## Student Dashboard (Phase 4)
+- 🗺️ Overview, profile, applications, documents center, offers, payments, messages,
+  appointments, favorites, notifications — all schema-ready, no UI yet
 
-## Admin Dashboard
-- ✅ Overview/KPIs
-- ✅ Lead CRM (list, stages, sources, assignment, conversion to student)
-- ✅ Student management
-- 🧱 Application management (status changes, notes, deadlines)
-- 🧱 University/Program/Scholarship management (CRUD)
-- 🧱 Content management (articles/FAQs/testimonials/success stories/banners/SEO)
-- 🧱 Staff & role management (RBAC editor)
-- 🗺️ Finance module (invoices/payments/commissions/refunds/expenses)
-- 🧱 Reports & analytics (core reports; CSV export)
-- 🗺️ Activity/audit log viewer UI (writes are implemented from day one; UI is later)
+## Admin Dashboard (Phase 5)
+- 🗺️ Overview/KPIs, lead CRM, student/application/university/program/scholarship
+  management, CMS, staff & role management, finance, reports, activity log viewer
 
-## Consultant / Admissions Officer Dashboards
-- 🧱 Consultant: assigned leads/students, notes, recommendations, application creation
-- 🧱 Admissions Officer: document verification queue, submission workflow
+## Consultant / Admissions Officer Dashboards (Phase 5)
+- 🗺️ Not yet built
 
-## Partner University Portal
-- 🧱 Own-university applications, decisions, document requests
+## Partner University Portal / Educational Agent Portal (Phase 6)
+- 🗺️ Not yet built
 
-## Educational Agent Portal
-- 🧱 Lead/student submission, application tracking, commission statements
+## Cross-cutting infrastructure (Phase 1 — this delivery)
+- ✅ Full relational schema for every module (60+ Prisma models), migrated and seeded
+  against a real PostgreSQL database
+- ✅ Design system: Tailwind brand tokens + 16 reusable shadcn/ui-style components
+- ✅ i18n (en/ar/tr) with RTL, via next-intl, verified end-to-end
+- ✅ Error handling: typed `AppError` hierarchy, route-level error/not-found/global-error
+  boundaries, reusable `EmptyState`/`ErrorState` components, loading skeletons
+- ✅ SEO scaffolding (`sitemap.ts`, `robots.ts`, per-locale metadata)
+- 🗺️ Secure file upload, signed URLs, audit logging writes, real-time messaging —
+  schema exists (`Document`, `AuditLog`, `Message`), service-layer implementation is
+  a later phase
 
-## Cross-cutting
-- ✅ Full relational schema for all 12-§ entities (Prisma), even where UI is 🧱/🗺️
-- ✅ RBAC middleware + server-side permission checks
-- ✅ i18n (en/ar/tr), RTL, locale-aware currency/date formatting
-- ✅ SEO (metadata, sitemap.xml, robots.txt, JSON-LD for University/Article/FAQ/Breadcrumb)
-- ✅ Secure file upload (type/size validation, private storage, signed URLs)
-- ✅ Audit logging (write-side)
-- 🗺️ Real-time messaging (v1 is polling/refetch-based via server actions; WebSocket
-  upgrade is a documented future extension point)
-
-This phasing matches `09-development-roadmap.md`. Items marked 🧱/🗺️ have their data
-model and API surface fully designed now so no future migration/rework is needed —
-only UI and business-logic wiring remain.
+Items marked 🧱/🗺️ have their data model fully designed now (see `06-database-erd.md`)
+so no future migration/rework is needed — only UI and business-logic wiring remain.
