@@ -21,10 +21,10 @@ qualified leads and self-serve applications into an operational admissions pipel
 | Slogan | Your Fast Track to University Admission |
 | Alt. slogan | Apply Faster. Study Smarter. Go Global. |
 | Personality | Professional, trustworthy, modern, international, student-friendly, fast, premium-but-accessible |
-| Primary colors | Deep blue `hsl(231 68% 21%)` (~`#171F4A`), Bright blue `hsl(226 92% 56%)` (~`#2E4EEB`), White `#FFFFFF` |
-| Accent | Orange `hsl(22 100% 58%)` (~`#FF7A29`) — reserved for conversion CTAs only: Apply, Get Consultation, Submit, and their pill-shaped button treatment |
-| Typography | Cairo (rounded, Arabic-native + Turkish-safe) for display/headings across all three locales; Inter for UI/body copy |
-| Logo mark | A rounded chat-bubble outline in deep blue containing an orange lightning bolt — "fast, personal guidance." Wordmark is two-tone: "Fast" in deep blue, "UniApply" in orange, set in Cairo Bold. See `src/components/shared/logo.tsx`. |
+| Primary colors | Bright blue `#1E51F5` (exact brand color), Deep blue `hsl(226 70% 20%)` (a darker tint of the same hue, for large surfaces/text), White `#FFFFFF` |
+| Accent | Orange `#F95B1A` (exact brand color) — reserved for conversion CTAs only: Apply, Get Consultation, Submit, and their pill-shaped button treatment |
+| Typography | Fredoka (the brand's actual wordmark typeface) for display/headings in English and Turkish; Cairo (rounded, native Arabic) for Arabic — same rounded voice, since Fredoka has no Arabic glyphs. Inter for UI/body copy in all locales. |
+| Logo mark | A "Ui" letterform pierced by a lightning bolt, with a gold (`#D59C41`) dot standing in for the "i". Wordmark is two-tone: "Fast" in orange, "UniApply" in blue. Colors and geometry are exact — traced as vector paths from the official brand kit (`FAST_UNI_APPLY_2026_2_1.ai`), not re-approximated. See `src/components/shared/logo.tsx`. |
 
 Full tokens are defined in `tailwind.config.ts` and `src/styles/globals.css`
 (`--primary`/`--secondary`/`--accent` CSS variables, plus a `.bg-brand-gradient`

@@ -60,37 +60,40 @@ const config: Config = {
           800: "#171F4A",
           900: "#0E1430",
         },
+        // brandBlue.500 and orange.500 are the exact colors extracted from
+        // the official logo file (FAST_UNI_APPLY_2026_2_1.ai) — #1E51F5 and
+        // #F95B1A respectively. Surrounding shades are derived from them.
         brandBlue: {
           50: "#EAEFFF",
           100: "#D2DCFF",
           200: "#A6B9FF",
           300: "#7A93FF",
-          400: "#5470F5",
-          500: "#2E4EEB",
-          600: "#2038C4",
-          700: "#182B94",
-          800: "#121F6E",
-          900: "#0C1550",
+          400: "#4A6FF8",
+          500: "#1E51F5",
+          600: "#173FCB",
+          700: "#122F9C",
+          800: "#0E2372",
+          900: "#0A1850",
         },
         orange: {
-          50: "#FFF3EC",
-          100: "#FFE2CE",
-          200: "#FFC29B",
-          300: "#FFA167",
-          400: "#FF8A47",
-          500: "#FF7A30",
-          600: "#E85F17",
-          700: "#BE4710",
-          800: "#93370D",
-          900: "#6B280A",
+          50: "#FFF1EA",
+          100: "#FFDDCB",
+          200: "#FFB897",
+          300: "#FF9263",
+          400: "#FC7841",
+          500: "#F95B1A",
+          600: "#D14711",
+          700: "#A3370D",
+          800: "#78290A",
+          900: "#521B06",
         },
       },
       fontFamily: {
         sans: ["var(--font-inter)", "system-ui", "sans-serif"],
-        // Cairo is the brand's display font — rounded, and (unlike Sora) has
-        // native Arabic glyphs plus full Turkish Latin-Extended coverage, so
-        // headings keep the same voice across all three locales.
-        display: ["var(--font-cairo)", "var(--font-inter)", "system-ui", "sans-serif"],
+        // `--font-display` is set per-locale on <html> in the root layout:
+        // Fredoka (the brand's actual wordmark font) for en/tr, Cairo
+        // (native Arabic, same rounded voice) for ar.
+        display: ["var(--font-display)", "var(--font-inter)", "system-ui", "sans-serif"],
       },
       borderRadius: {
         lg: "var(--radius)",
