@@ -6,6 +6,8 @@ import { scholarshipsSeed } from "./scholarships";
 import { articleCategoriesSeed, articlesSeed } from "./articles";
 import { documentTypesSeed, leadSourcesSeed, rolesSeed, permissionsSeed, rolePermissionMap } from "./reference-data";
 import { testimonialsSeed } from "./testimonials";
+import { countryGuidesSeed } from "./country-guides";
+import { faqsSeed } from "./faqs";
 
 const prisma = new PrismaClient();
 
@@ -135,6 +137,48 @@ async function seedUniversitiesAndPrograms() {
     }
   }
   console.log(`✓ Universities: ${universitiesSeed.length}, Programs: ${programCount}`);
+}
+
+async function seedCountryGuides() {
+  for (const g of countryGuidesSeed) {
+    const country = await prisma.country.findUniqueOrThrow({ where: { slug: g.countrySlug } });
+    const guide = await prisma.countryGuide.upsert({
+      where: { countryId: country.id },
+      update: {},
+      create: { countryId: country.id, published: true },
+    });
+    await prisma.countryGuideTranslation.upsert({
+      where: { countryGuideId_locale: { countryGuideId: guide.id, locale: "en" } },
+      update: {},
+      create: {
+        countryGuideId: guide.id,
+        locale: "en",
+        whyStudyHere: g.whyStudyHere,
+        educationSystem: g.educationSystem,
+        tuitionOverview: g.tuitionOverview,
+        costOfLiving: g.costOfLiving,
+        visaInformation: g.visaInformation,
+        accommodation: g.accommodation,
+        workOpportunities: g.workOpportunities,
+        requiredDocuments: g.requiredDocuments,
+      },
+    });
+  }
+  console.log(`✓ Country guides: ${countryGuidesSeed.length}`);
+}
+
+async function seedFaqs() {
+  for (const f of faqsSeed) {
+    const existing = await prisma.fAQ.findFirst({
+      where: { context: f.context, order: f.order },
+    });
+    if (existing) continue;
+    const faq = await prisma.fAQ.create({ data: { context: f.context, order: f.order } });
+    await prisma.fAQTranslation.create({
+      data: { faqId: faq.id, locale: "en", question: f.question, answer: f.answer },
+    });
+  }
+  console.log(`✓ FAQs: ${faqsSeed.length}`);
 }
 
 async function seedScholarships() {
@@ -384,6 +428,8 @@ async function main() {
   await seedReferenceData();
   await seedGeography();
   await seedUniversitiesAndPrograms();
+  await seedCountryGuides();
+  await seedFaqs();
   await seedScholarships();
   await seedContentAndStaff();
   const { consultant, officer } = await seedStaffConsultantsAndOfficers();
