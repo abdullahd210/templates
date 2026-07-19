@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import type { AppLocale } from "@/i18n/config";
-import { GraduationCap } from "lucide-react";
+import { Logo } from "@/components/shared/logo";
 
 export async function Footer({ locale }: { locale: AppLocale }) {
   const t = await getTranslations({ locale, namespace: "nav" });
@@ -47,10 +47,7 @@ export async function Footer({ locale }: { locale: AppLocale }) {
     <footer className="border-t border-border bg-primary text-primary-foreground">
       <div className="container grid gap-10 py-14 md:grid-cols-[1.5fr_repeat(4,1fr)]">
         <div>
-          <div className="flex items-center gap-2 font-display text-lg font-bold">
-            <GraduationCap className="h-6 w-6 text-secondary" />
-            FastUniApply
-          </div>
+          <Logo variant="inverted" />
           <p className="mt-3 max-w-xs text-sm text-primary-foreground/70">
             Your Fast Track to University Admission. Discover universities, compare
             programs, and apply with expert guidance.

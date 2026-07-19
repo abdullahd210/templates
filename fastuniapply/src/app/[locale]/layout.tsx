@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Sora } from "next/font/google";
+import { Inter, Cairo } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
@@ -10,7 +10,9 @@ import { Toaster } from "@/components/ui/toaster";
 import "@/styles/globals.css";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
-const sora = Sora({ subsets: ["latin"], variable: "--font-sora", display: "swap" });
+// Cairo: the brand display font — rounded, native Arabic + Turkish-safe Latin
+// glyph coverage, so headings read consistently in all three locales.
+const cairo = Cairo({ subsets: ["latin", "arabic"], weight: ["600", "700", "800"], variable: "--font-cairo", display: "swap" });
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -57,7 +59,7 @@ export default async function LocaleLayout({
   const dir = isRtl(locale) ? "rtl" : "ltr";
 
   return (
-    <html lang={locale} dir={dir} className={`${inter.variable} ${sora.variable}`}>
+    <html lang={locale} dir={dir} className={`${inter.variable} ${cairo.variable}`}>
       <body className="font-sans antialiased">
         <NextIntlClientProvider locale={locale} messages={messages}>
           <SessionProvider session={session}>

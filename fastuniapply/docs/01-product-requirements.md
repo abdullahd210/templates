@@ -21,11 +21,14 @@ qualified leads and self-serve applications into an operational admissions pipel
 | Slogan | Your Fast Track to University Admission |
 | Alt. slogan | Apply Faster. Study Smarter. Go Global. |
 | Personality | Professional, trustworthy, modern, international, student-friendly, fast, premium-but-accessible |
-| Primary colors | Deep blue `#0B2A5B`, Bright blue `#2E6BFF`, White `#FFFFFF` |
-| Accent | Orange `#FF7A30` (reserved for conversion actions only: Apply, Get Consultation, Submit) |
-| Typography | Modern geometric/humanist sans (Inter for UI, Cal Sans/Sora for display headings) |
+| Primary colors | Deep blue `hsl(231 68% 21%)` (~`#171F4A`), Bright blue `hsl(226 92% 56%)` (~`#2E4EEB`), White `#FFFFFF` |
+| Accent | Orange `hsl(22 100% 58%)` (~`#FF7A29`) — reserved for conversion CTAs only: Apply, Get Consultation, Submit, and their pill-shaped button treatment |
+| Typography | Cairo (rounded, Arabic-native + Turkish-safe) for display/headings across all three locales; Inter for UI/body copy |
+| Logo mark | A rounded chat-bubble outline in deep blue containing an orange lightning bolt — "fast, personal guidance." Wordmark is two-tone: "Fast" in deep blue, "UniApply" in orange, set in Cairo Bold. See `src/components/shared/logo.tsx`. |
 
-Full tokens are defined in `docs/design-system` (Phase 2) and `tailwind.config.ts`.
+Full tokens are defined in `tailwind.config.ts` and `src/styles/globals.css`
+(`--primary`/`--secondary`/`--accent` CSS variables, plus a `.bg-brand-gradient`
+utility for hero/promo sections built in Phase 3).
 
 ## 3. Goals
 

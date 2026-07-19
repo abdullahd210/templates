@@ -4,7 +4,7 @@ import type { AppLocale } from "@/i18n/config";
 import { Button } from "@/components/ui/button";
 import { LanguageSwitcher } from "@/components/layout/language-switcher";
 import { MobileNav } from "@/components/layout/mobile-nav";
-import { GraduationCap } from "lucide-react";
+import { Logo } from "@/components/shared/logo";
 
 export async function Header({ locale }: { locale: AppLocale }) {
   const t = await getTranslations({ locale, namespace: "nav" });
@@ -23,9 +23,8 @@ export async function Header({ locale }: { locale: AppLocale }) {
   return (
     <header className="sticky top-0 z-30 border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
       <div className="container relative flex h-16 items-center justify-between gap-4">
-        <Link href={`/${locale}`} className="flex items-center gap-2 font-display text-lg font-bold text-primary">
-          <GraduationCap className="h-6 w-6 text-secondary" />
-          FastUniApply
+        <Link href={`/${locale}`}>
+          <Logo />
         </Link>
 
         <nav className="hidden items-center gap-6 md:flex">

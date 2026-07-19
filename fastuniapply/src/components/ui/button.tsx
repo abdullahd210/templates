@@ -11,8 +11,9 @@ const buttonVariants = cva(
         // Primary brand action (deep blue) — most buttons.
         default: "bg-primary text-primary-foreground shadow-soft hover:bg-primary/90",
         // Reserved for the single most important conversion action on a page
-        // (Apply Now, Get Consultation, Submit) — see docs/01 §7.
-        accent: "bg-accent text-accent-foreground shadow-soft hover:bg-accent/90",
+        // (Apply Now, Get Consultation, Submit) — see docs/01 §7. Pill-shaped
+        // per the brand identity's orange CTA treatment.
+        accent: "rounded-full bg-accent text-accent-foreground shadow-soft hover:bg-accent/90",
         secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/90",
         outline: "border border-input bg-background hover:bg-muted",
         ghost: "hover:bg-muted",
@@ -21,8 +22,8 @@ const buttonVariants = cva(
       },
       size: {
         default: "h-11 px-5 py-2",
-        sm: "h-9 rounded-md px-3 text-sm",
-        lg: "h-12 rounded-lg px-8 text-base",
+        sm: "h-9 px-3 text-sm",
+        lg: "h-12 px-8 text-base",
         icon: "h-10 w-10",
       },
     },
