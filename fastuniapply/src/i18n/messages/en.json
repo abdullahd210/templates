@@ -1,0 +1,83 @@
+{
+  "brand": {
+    "name": "FastUniApply",
+    "slogan": "Your Fast Track to University Admission"
+  },
+  "nav": {
+    "universities": "Universities",
+    "programs": "Programs",
+    "scholarships": "Scholarships",
+    "studyDestinations": "Study Destinations",
+    "articles": "Articles",
+    "about": "About",
+    "contact": "Contact",
+    "login": "Log In",
+    "getStarted": "Get Started",
+    "dashboard": "Dashboard"
+  },
+  "cta": {
+    "findUniversity": "Find a University",
+    "explorePrograms": "Explore Programs",
+    "startApplication": "Start Your Application",
+    "getConsultation": "Get Free Consultation",
+    "applyNow": "Apply Now",
+    "requestConsultation": "Request Consultation",
+    "viewDetails": "View Details",
+    "addToFavorites": "Add to Favorites",
+    "compare": "Compare",
+    "downloadBrochure": "Download Brochure",
+    "readMore": "Read More",
+    "viewAll": "View All",
+    "subscribe": "Subscribe"
+  },
+  "home": {
+    "heroTitle": "Your Fast Track to University Admission",
+    "heroSubtitle": "Discover universities, compare programs, and apply with expert guidance — all in one place.",
+    "searchPlaceholder": "Search universities, programs, or countries",
+    "statsUniversities": "Partner Universities",
+    "statsPrograms": "Available Programs",
+    "statsCountries": "Countries",
+    "statsApplications": "Successful Applications",
+    "featuredUniversities": "Featured Universities",
+    "popularDestinations": "Popular Study Destinations",
+    "featuredPrograms": "Featured Programs",
+    "latestScholarships": "Latest Scholarships",
+    "howItWorks": "How FastUniApply Works",
+    "whyChooseUs": "Why Students Choose FastUniApply",
+    "testimonials": "What Our Students Say",
+    "partners": "Our Partner Universities",
+    "latestArticles": "Latest Articles",
+    "faq": "Frequently Asked Questions",
+    "newsletterTitle": "Stay Updated",
+    "newsletterSubtitle": "Get the latest scholarships and admission tips in your inbox."
+  },
+  "common": {
+    "loading": "Loading…",
+    "noResults": "No results found",
+    "seeMore": "See more",
+    "seeLess": "See less",
+    "filters": "Filters",
+    "sortBy": "Sort by",
+    "currency": "Currency",
+    "language": "Language"
+  },
+  "auth": {
+    "loginTitle": "Log in to FastUniApply",
+    "loginSubtitle": "Track your applications, documents, and consultations.",
+    "registerTitle": "Create your FastUniApply account",
+    "registerSubtitle": "Start discovering universities and tracking your applications.",
+    "fullName": "Full name",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm password",
+    "termsAgreement": "I agree to the Terms & Conditions and Privacy Policy.",
+    "signIn": "Sign In",
+    "signingIn": "Signing in…",
+    "createAccount": "Create Account",
+    "creatingAccount": "Creating account…",
+    "noAccount": "Don't have an account?",
+    "createOne": "Create one",
+    "haveAccount": "Already have an account?",
+    "invalidCredentials": "Invalid email or password."
+  }
+}

@@ -1,0 +1,83 @@
+{
+  "brand": {
+    "name": "FastUniApply",
+    "slogan": "طريقك السريع نحو القبول الجامعي"
+  },
+  "nav": {
+    "universities": "الجامعات",
+    "programs": "البرامج",
+    "scholarships": "المنح الدراسية",
+    "studyDestinations": "وجهات الدراسة",
+    "articles": "المقالات",
+    "about": "من نحن",
+    "contact": "تواصل معنا",
+    "login": "تسجيل الدخول",
+    "getStarted": "ابدأ الآن",
+    "dashboard": "لوحة التحكم"
+  },
+  "cta": {
+    "findUniversity": "ابحث عن جامعة",
+    "explorePrograms": "استكشف البرامج",
+    "startApplication": "ابدأ طلبك",
+    "getConsultation": "احصل على استشارة مجانية",
+    "applyNow": "قدّم الآن",
+    "requestConsultation": "اطلب استشارة",
+    "viewDetails": "عرض التفاصيل",
+    "addToFavorites": "أضف إلى المفضلة",
+    "compare": "قارن",
+    "downloadBrochure": "تحميل الكتيب",
+    "readMore": "اقرأ المزيد",
+    "viewAll": "عرض الكل",
+    "subscribe": "اشترك"
+  },
+  "home": {
+    "heroTitle": "طريقك السريع نحو القبول الجامعي",
+    "heroSubtitle": "اكتشف الجامعات، قارن البرامج، وقدّم طلبك بإرشاد الخبراء — كل ذلك في مكان واحد.",
+    "searchPlaceholder": "ابحث عن جامعة أو برنامج أو دولة",
+    "statsUniversities": "الجامعات الشريكة",
+    "statsPrograms": "البرامج المتاحة",
+    "statsCountries": "الدول",
+    "statsApplications": "الطلبات الناجحة",
+    "featuredUniversities": "جامعات مميزة",
+    "popularDestinations": "وجهات الدراسة الأكثر طلبًا",
+    "featuredPrograms": "برامج مميزة",
+    "latestScholarships": "أحدث المنح الدراسية",
+    "howItWorks": "كيف يعمل FastUniApply",
+    "whyChooseUs": "لماذا يختار الطلاب FastUniApply",
+    "testimonials": "ماذا يقول طلابنا",
+    "partners": "جامعاتنا الشريكة",
+    "latestArticles": "أحدث المقالات",
+    "faq": "الأسئلة الشائعة",
+    "newsletterTitle": "ابقَ على اطلاع",
+    "newsletterSubtitle": "احصل على أحدث المنح الدراسية ونصائح القبول في بريدك الإلكتروني."
+  },
+  "common": {
+    "loading": "جارٍ التحميل…",
+    "noResults": "لا توجد نتائج",
+    "seeMore": "عرض المزيد",
+    "seeLess": "عرض أقل",
+    "filters": "التصفية",
+    "sortBy": "الترتيب حسب",
+    "currency": "العملة",
+    "language": "اللغة"
+  },
+  "auth": {
+    "loginTitle": "تسجيل الدخول إلى FastUniApply",
+    "loginSubtitle": "تابع طلباتك ومستنداتك واستشاراتك.",
+    "registerTitle": "أنشئ حساب FastUniApply الخاص بك",
+    "registerSubtitle": "ابدأ باكتشاف الجامعات وتتبع طلباتك.",
+    "fullName": "الاسم الكامل",
+    "email": "البريد الإلكتروني",
+    "password": "كلمة المرور",
+    "confirmPassword": "تأكيد كلمة المرور",
+    "termsAgreement": "أوافق على الشروط والأحكام وسياسة الخصوصية.",
+    "signIn": "تسجيل الدخول",
+    "signingIn": "جارٍ تسجيل الدخول…",
+    "createAccount": "إنشاء حساب",
+    "creatingAccount": "جارٍ إنشاء الحساب…",
+    "noAccount": "ليس لديك حساب؟",
+    "createOne": "أنشئ حسابًا",
+    "haveAccount": "لديك حساب بالفعل؟",
+    "invalidCredentials": "البريد الإلكتروني أو كلمة المرور غير صحيحة."
+  }
+}

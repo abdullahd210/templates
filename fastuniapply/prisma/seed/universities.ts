@@ -1,0 +1,413 @@
+export interface ProgramSeed {
+  slug: string;
+  degreeLevel:
+    | "FOUNDATION"
+    | "DIPLOMA"
+    | "ASSOCIATE"
+    | "BACHELORS"
+    | "MASTERS"
+    | "PHD"
+    | "MEDICAL_SPECIALIZATION"
+    | "LANGUAGE"
+    | "CERTIFICATE";
+  field: string;
+  major: string;
+  studyLanguage: string;
+  durationMonths: number;
+  applicationFeeMinor: number;
+  tuitionMinor: number;
+  discountedTuitionMinor?: number;
+  currency: string;
+  featured?: boolean;
+  name: string;
+  overview: string;
+}
+
+export interface UniversitySeed {
+  slug: string;
+  countrySlug: string;
+  city: string;
+  type: "PUBLIC" | "PRIVATE";
+  rankingGlobal?: number;
+  rankingNational?: number;
+  accreditations: string[];
+  scholarshipsAvailable: boolean;
+  admissionStatus: "OPEN" | "CLOSED" | "UPCOMING";
+  startingTuitionMinor: number;
+  currency: string;
+  websiteUrl: string;
+  foundedYear: number;
+  isFeatured: boolean;
+  name: string;
+  aboutText: string;
+  admissionRequirements: string;
+  languageRequirements: string;
+  accommodationInfo: string;
+  studentLife: string;
+  programs: ProgramSeed[];
+}
+
+// [DEMO DATA] — realistic placeholder catalog for development/QA. Replace or
+// extend via the Admin > Universities module once real partnerships are onboarded.
+export const universitiesSeed: UniversitySeed[] = [
+  {
+    slug: "istanbul-biruni-university",
+    countrySlug: "turkiye",
+    city: "Istanbul",
+    type: "PRIVATE",
+    rankingNational: 24,
+    accreditations: ["YÖK", "FIBAA"],
+    scholarshipsAvailable: true,
+    admissionStatus: "OPEN",
+    startingTuitionMinor: 250000,
+    currency: "USD",
+    websiteUrl: "https://example.edu/biruni",
+    foundedYear: 2014,
+    isFeatured: true,
+    name: "Istanbul Biruni University",
+    aboutText: "A modern private university in Istanbul with strong health sciences, engineering, and business faculties, popular with international students for its English-taught programs.",
+    admissionRequirements: "High school diploma, transcript, passport copy, English proficiency (if applicable).",
+    languageRequirements: "IELTS 6.0 or equivalent for English-taught programs; no language test required for Turkish-taught programs with a prep year.",
+    accommodationInfo: "On-campus dormitories and partner student residences within 15 minutes of campus.",
+    studentLife: "80+ student clubs, an active international student office, and a central Istanbul campus.",
+    programs: [
+      { slug: "computer-engineering-bachelors", degreeLevel: "BACHELORS", field: "Engineering", major: "Computer Engineering", studyLanguage: "English", durationMonths: 48, applicationFeeMinor: 5000, tuitionMinor: 280000, discountedTuitionMinor: 210000, currency: "USD", featured: true, name: "Computer Engineering", overview: "A comprehensive four-year program covering software engineering, AI, and systems design." },
+      { slug: "general-medicine-medical-specialization", degreeLevel: "MEDICAL_SPECIALIZATION", field: "Medicine", major: "General Medicine", studyLanguage: "English", durationMonths: 72, applicationFeeMinor: 10000, tuitionMinor: 1200000, currency: "USD", name: "General Medicine (MD)", overview: "Six-year medical degree combining pre-clinical sciences with clinical rotations in affiliated hospitals." },
+      { slug: "business-administration-bachelors-biruni", degreeLevel: "BACHELORS", field: "Business", major: "Business Administration", studyLanguage: "English", durationMonths: 48, applicationFeeMinor: 5000, tuitionMinor: 220000, currency: "USD", name: "Business Administration", overview: "Core business fundamentals with concentrations in marketing, finance, and international trade." },
+    ],
+  },
+  {
+    slug: "ankara-science-university",
+    countrySlug: "turkiye",
+    city: "Ankara",
+    type: "PRIVATE",
+    rankingNational: 31,
+    accreditations: ["YÖK"],
+    scholarshipsAvailable: true,
+    admissionStatus: "OPEN",
+    startingTuitionMinor: 200000,
+    currency: "USD",
+    websiteUrl: "https://example.edu/ankara-science",
+    foundedYear: 2018,
+    isFeatured: false,
+    name: "Ankara Science University",
+    aboutText: "A growing STEM-focused university offering scholarship-heavy engineering and technology programs.",
+    admissionRequirements: "High school diploma with strong math/science grades, English proficiency for English-track programs.",
+    languageRequirements: "IELTS 5.5 or an internal English placement test.",
+    accommodationInfo: "University-managed dorms, single and shared rooms.",
+    studentLife: "STEM-focused clubs, hackathons, and a maker space.",
+    programs: [
+      { slug: "software-engineering-bachelors", degreeLevel: "BACHELORS", field: "Engineering", major: "Software Engineering", studyLanguage: "English", durationMonths: 48, applicationFeeMinor: 4000, tuitionMinor: 190000, discountedTuitionMinor: 95000, currency: "USD", featured: true, name: "Software Engineering", overview: "Modern software engineering curriculum with cloud, mobile, and AI tracks." },
+      { slug: "data-science-masters", degreeLevel: "MASTERS", field: "Engineering", major: "Data Science", studyLanguage: "English", durationMonths: 24, applicationFeeMinor: 4000, tuitionMinor: 260000, currency: "USD", name: "Data Science", overview: "Applied statistics, machine learning, and big data engineering, with an industry capstone." },
+    ],
+  },
+  {
+    slug: "eotvos-lorand-university",
+    countrySlug: "hungary",
+    city: "Budapest",
+    type: "PUBLIC",
+    rankingGlobal: 601,
+    accreditations: ["MAB", "EU-recognized"],
+    scholarshipsAvailable: true,
+    admissionStatus: "OPEN",
+    startingTuitionMinor: 350000,
+    currency: "USD",
+    websiteUrl: "https://example.edu/elte",
+    foundedYear: 1635,
+    isFeatured: true,
+    name: "Eötvös Loránd University",
+    aboutText: "One of Hungary's oldest and most prestigious universities, with a large international student community in central Budapest.",
+    admissionRequirements: "Secondary school certificate, motivation letter, and (for Master's) a relevant Bachelor's degree.",
+    languageRequirements: "IELTS 6.0/TOEFL 80 for English-taught programs.",
+    accommodationInfo: "Dormitories available for first-year international students; private housing common after year one.",
+    studentLife: "Large Erasmus and international student network, city-centre campus life.",
+    programs: [
+      { slug: "international-business-masters", degreeLevel: "MASTERS", field: "Business", major: "International Business", studyLanguage: "English", durationMonths: 24, applicationFeeMinor: 3000, tuitionMinor: 400000, currency: "USD", featured: true, name: "International Business", overview: "A management degree focused on global markets, strategy, and cross-border operations." },
+      { slug: "psychology-bachelors", degreeLevel: "BACHELORS", field: "Social Sciences", major: "Psychology", studyLanguage: "English", durationMonths: 36, applicationFeeMinor: 3000, tuitionMinor: 380000, currency: "USD", name: "Psychology", overview: "A research-driven psychology degree with clinical and cognitive science tracks." },
+      { slug: "computer-science-phd", degreeLevel: "PHD", field: "Engineering", major: "Computer Science", studyLanguage: "English", durationMonths: 48, applicationFeeMinor: 5000, tuitionMinor: 300000, currency: "USD", name: "Computer Science (PhD)", overview: "Doctoral research program with supervision across AI, distributed systems, and theory." },
+    ],
+  },
+  {
+    slug: "university-of-debrecen",
+    countrySlug: "hungary",
+    city: "Debrecen",
+    type: "PUBLIC",
+    rankingGlobal: 701,
+    accreditations: ["MAB", "WHO-listed (Medicine)"],
+    scholarshipsAvailable: true,
+    admissionStatus: "OPEN",
+    startingTuitionMinor: 900000,
+    currency: "USD",
+    websiteUrl: "https://example.edu/debrecen",
+    foundedYear: 1538,
+    isFeatured: false,
+    name: "University of Debrecen",
+    aboutText: "A leading destination for international medical and dental education, with decades of experience teaching in English.",
+    admissionRequirements: "Entrance exam (biology & chemistry), secondary school certificate.",
+    languageRequirements: "Entrance exam is conducted in English; no separate language certificate required.",
+    accommodationInfo: "Dedicated international student dormitory near the medical campus.",
+    studentLife: "Large international medical student body from 60+ countries.",
+    programs: [
+      { slug: "general-medicine-debrecen-medical-specialization", degreeLevel: "MEDICAL_SPECIALIZATION", field: "Medicine", major: "General Medicine", studyLanguage: "English", durationMonths: 72, applicationFeeMinor: 15000, tuitionMinor: 1650000, currency: "USD", featured: true, name: "General Medicine (MD)", overview: "WHO-listed six-year medical program with clinical training in university hospitals." },
+      { slug: "dentistry-medical-specialization", degreeLevel: "MEDICAL_SPECIALIZATION", field: "Medicine", major: "Dentistry", studyLanguage: "English", durationMonths: 60, applicationFeeMinor: 15000, tuitionMinor: 1750000, currency: "USD", name: "Dentistry (DMD)", overview: "Five-year dental degree with early hands-on clinical exposure." },
+    ],
+  },
+  {
+    slug: "srh-berlin-university",
+    countrySlug: "germany",
+    city: "Berlin",
+    type: "PRIVATE",
+    rankingNational: 18,
+    accreditations: ["AQAS", "ZEvA"],
+    scholarshipsAvailable: false,
+    admissionStatus: "OPEN",
+    startingTuitionMinor: 900000,
+    currency: "USD",
+    websiteUrl: "https://example.edu/srh-berlin",
+    foundedYear: 2005,
+    isFeatured: true,
+    name: "SRH Berlin University of Applied Sciences",
+    aboutText: "A private applied-sciences university in central Berlin, known for practice-oriented business and design programs.",
+    admissionRequirements: "University entrance qualification, English proficiency, letter of motivation.",
+    languageRequirements: "IELTS 6.0/TOEFL 80.",
+    accommodationInfo: "Assistance with private student housing across Berlin.",
+    studentLife: "Small class sizes, strong internship placement network with Berlin employers.",
+    programs: [
+      { slug: "international-management-masters", degreeLevel: "MASTERS", field: "Business", major: "International Management", studyLanguage: "English", durationMonths: 24, applicationFeeMinor: 0, tuitionMinor: 950000, currency: "USD", featured: true, name: "International Management", overview: "A management Master's with a mandatory internship semester in a German company." },
+      { slug: "mechanical-engineering-bachelors-srh", degreeLevel: "BACHELORS", field: "Engineering", major: "Mechanical Engineering", studyLanguage: "English", durationMonths: 42, applicationFeeMinor: 0, tuitionMinor: 880000, currency: "USD", name: "Mechanical Engineering", overview: "Applied mechanical engineering with lab-based coursework and industry partners." },
+    ],
+  },
+  {
+    slug: "technical-university-of-munich",
+    countrySlug: "germany",
+    city: "Munich",
+    type: "PUBLIC",
+    rankingGlobal: 37,
+    accreditations: ["ASIIN", "ZEvA"],
+    scholarshipsAvailable: true,
+    admissionStatus: "OPEN",
+    startingTuitionMinor: 30000,
+    currency: "USD",
+    websiteUrl: "https://example.edu/tum",
+    foundedYear: 1868,
+    isFeatured: true,
+    name: "Technical University of Munich",
+    aboutText: "One of Europe's top technical universities, globally recognized for engineering, robotics, and applied sciences research.",
+    admissionRequirements: "Strong academic record, subject-specific entrance requirements vary by program.",
+    languageRequirements: "IELTS 6.5/TOEFL 88 for English-taught Master's programs.",
+    accommodationInfo: "Student housing via the Munich Studierendenwerk (limited spots, apply early).",
+    studentLife: "Cutting-edge research labs, robotics competitions, and a large international student office.",
+    programs: [
+      { slug: "electrical-engineering-masters", degreeLevel: "MASTERS", field: "Engineering", major: "Electrical Engineering", studyLanguage: "English", durationMonths: 24, applicationFeeMinor: 0, tuitionMinor: 60000, currency: "USD", featured: true, name: "Electrical Engineering", overview: "Advanced coursework in power systems, embedded systems, and signal processing." },
+      { slug: "mechanical-engineering-bachelors-tum", degreeLevel: "BACHELORS", field: "Engineering", major: "Mechanical Engineering", studyLanguage: "German", durationMonths: 36, applicationFeeMinor: 0, tuitionMinor: 30000, currency: "USD", name: "Mechanical Engineering", overview: "Foundational mechanical engineering degree taught in German with an optional English track in year 3." },
+      { slug: "robotics-phd", degreeLevel: "PHD", field: "Engineering", major: "Robotics", studyLanguage: "English", durationMonths: 48, applicationFeeMinor: 0, tuitionMinor: 30000, currency: "USD", name: "Robotics (PhD)", overview: "Doctoral research in autonomous systems and robotics at one of Europe's leading labs." },
+    ],
+  },
+  {
+    slug: "university-of-warsaw",
+    countrySlug: "poland",
+    city: "Warsaw",
+    type: "PUBLIC",
+    rankingGlobal: 321,
+    accreditations: ["PKA"],
+    scholarshipsAvailable: true,
+    admissionStatus: "OPEN",
+    startingTuitionMinor: 300000,
+    currency: "USD",
+    websiteUrl: "https://example.edu/warsaw",
+    foundedYear: 1816,
+    isFeatured: true,
+    name: "University of Warsaw",
+    aboutText: "Poland's top-ranked university, offering a broad range of English-taught programs in the capital city.",
+    admissionRequirements: "Secondary school certificate, entrance exam or portfolio depending on program.",
+    languageRequirements: "IELTS 6.0/TOEFL 78 for most English-taught programs.",
+    accommodationInfo: "University dormitories with priority for first-year international students.",
+    studentLife: "Vibrant capital-city student life, 400+ registered student organizations.",
+    programs: [
+      { slug: "economics-bachelors", degreeLevel: "BACHELORS", field: "Economics", major: "Economics", studyLanguage: "English", durationMonths: 36, applicationFeeMinor: 8500, tuitionMinor: 310000, currency: "USD", featured: true, name: "Economics", overview: "A quantitative economics degree with electives in econometrics and public policy." },
+      { slug: "international-relations-masters", degreeLevel: "MASTERS", field: "Social Sciences", major: "International Relations", studyLanguage: "English", durationMonths: 24, applicationFeeMinor: 8500, tuitionMinor: 340000, currency: "USD", name: "International Relations", overview: "Global politics, diplomacy, and EU studies with a semester abroad option." },
+      { slug: "law-bachelors", degreeLevel: "BACHELORS", field: "Law", major: "Law", studyLanguage: "Polish", durationMonths: 60, applicationFeeMinor: 8500, tuitionMinor: 290000, currency: "USD", name: "Law", overview: "Five-year integrated law degree following the Polish legal education system." },
+    ],
+  },
+  {
+    slug: "krakow-university-of-economics",
+    countrySlug: "poland",
+    city: "Krakow",
+    type: "PUBLIC",
+    rankingNational: 8,
+    accreditations: ["PKA", "AACSB (in progress)"],
+    scholarshipsAvailable: true,
+    admissionStatus: "OPEN",
+    startingTuitionMinor: 280000,
+    currency: "USD",
+    websiteUrl: "https://example.edu/krakow-economics",
+    foundedYear: 1925,
+    isFeatured: false,
+    name: "Krakow University of Economics",
+    aboutText: "A leading Polish business school known for finance, management, and international trade programs.",
+    admissionRequirements: "Secondary school certificate, English proficiency, motivation letter.",
+    languageRequirements: "IELTS 5.5/TOEFL 65.",
+    accommodationInfo: "On-campus dormitories a short walk from the historic city centre.",
+    studentLife: "Active business case-competition culture and Erasmus exchange network.",
+    programs: [
+      { slug: "finance-and-accounting-bachelors", degreeLevel: "BACHELORS", field: "Business", major: "Finance and Accounting", studyLanguage: "English", durationMonths: 36, applicationFeeMinor: 5000, tuitionMinor: 290000, currency: "USD", name: "Finance and Accounting", overview: "Core finance and accounting principles with a corporate finance specialization track." },
+      { slug: "management-masters", degreeLevel: "MASTERS", field: "Business", major: "Management", studyLanguage: "English", durationMonths: 24, applicationFeeMinor: 5000, tuitionMinor: 310000, currency: "USD", name: "Management", overview: "Strategic management and leadership Master's with an international consulting project." },
+    ],
+  },
+  {
+    slug: "rome-business-school",
+    countrySlug: "italy",
+    city: "Rome",
+    type: "PRIVATE",
+    rankingNational: 12,
+    accreditations: ["ASFOR"],
+    scholarshipsAvailable: false,
+    admissionStatus: "OPEN",
+    startingTuitionMinor: 850000,
+    currency: "USD",
+    websiteUrl: "https://example.edu/rome-business",
+    foundedYear: 2009,
+    isFeatured: false,
+    name: "Rome Business School",
+    aboutText: "A boutique business school in central Rome offering internationally focused MBA and management programs.",
+    admissionRequirements: "Bachelor's degree, resume/CV, admissions interview.",
+    languageRequirements: "IELTS 6.0 or professional working proficiency in English.",
+    accommodationInfo: "Partner residences within walking distance of campus.",
+    studentLife: "Small, highly international cohorts with strong alumni network across Europe.",
+    programs: [
+      { slug: "mba-masters", degreeLevel: "MASTERS", field: "Business", major: "MBA", studyLanguage: "English", durationMonths: 12, applicationFeeMinor: 0, tuitionMinor: 900000, discountedTuitionMinor: 720000, currency: "USD", featured: true, name: "MBA", overview: "A one-year full-time MBA with concentrations in international business and entrepreneurship." },
+      { slug: "marketing-management-masters", degreeLevel: "MASTERS", field: "Business", major: "Marketing Management", studyLanguage: "English", durationMonths: 12, applicationFeeMinor: 0, tuitionMinor: 780000, currency: "USD", name: "Marketing Management", overview: "Digital marketing, brand strategy, and consumer analytics taught by industry practitioners." },
+    ],
+  },
+  {
+    slug: "taylors-university",
+    countrySlug: "malaysia",
+    city: "Kuala Lumpur",
+    type: "PRIVATE",
+    rankingGlobal: 284,
+    accreditations: ["MQA"],
+    scholarshipsAvailable: true,
+    admissionStatus: "OPEN",
+    startingTuitionMinor: 180000,
+    currency: "USD",
+    websiteUrl: "https://example.edu/taylors",
+    foundedYear: 1969,
+    isFeatured: true,
+    name: "Taylor's University",
+    aboutText: "Malaysia's top-ranked private university, renowned for hospitality, computer science, and architecture programs.",
+    admissionRequirements: "High school diploma with a minimum GPA, English proficiency.",
+    languageRequirements: "IELTS 6.0 or equivalent (foundation pathway available for lower scores).",
+    accommodationInfo: "On-campus residential college with international student support services.",
+    studentLife: "Resort-style campus, strong hospitality industry partnerships, active clubs scene.",
+    programs: [
+      { slug: "hospitality-management-bachelors", degreeLevel: "BACHELORS", field: "Hospitality", major: "Hospitality Management", studyLanguage: "English", durationMonths: 36, applicationFeeMinor: 3000, tuitionMinor: 190000, currency: "USD", featured: true, name: "Hospitality Management", overview: "Industry-aligned hospitality degree including a paid international internship." },
+      { slug: "computer-science-bachelors-taylors", degreeLevel: "BACHELORS", field: "Engineering", major: "Computer Science", studyLanguage: "English", durationMonths: 36, applicationFeeMinor: 3000, tuitionMinor: 175000, currency: "USD", name: "Computer Science", overview: "Software development, AI, and cybersecurity tracks with strong local tech-industry links." },
+      { slug: "architecture-bachelors", degreeLevel: "BACHELORS", field: "Design", major: "Architecture", studyLanguage: "English", durationMonths: 48, applicationFeeMinor: 3000, tuitionMinor: 210000, currency: "USD", name: "Architecture", overview: "A design-led architecture program with a strong studio culture and sustainability focus." },
+    ],
+  },
+  {
+    slug: "girne-american-university",
+    countrySlug: "cyprus",
+    city: "Nicosia",
+    type: "PRIVATE",
+    rankingNational: 6,
+    accreditations: ["YÖDAK"],
+    scholarshipsAvailable: true,
+    admissionStatus: "OPEN",
+    startingTuitionMinor: 150000,
+    currency: "USD",
+    websiteUrl: "https://example.edu/gau",
+    foundedYear: 1985,
+    isFeatured: false,
+    name: "Girne American University",
+    aboutText: "An American-curriculum university in North Cyprus popular with international students seeking affordable, English-taught degrees.",
+    admissionRequirements: "High school diploma, English proficiency or completion of the English prep program.",
+    languageRequirements: "IELTS 5.5 or in-house English placement test.",
+    accommodationInfo: "Beachside dormitories and apartment-style housing options.",
+    studentLife: "Large international student population, Mediterranean campus lifestyle.",
+    programs: [
+      { slug: "civil-engineering-bachelors", degreeLevel: "BACHELORS", field: "Engineering", major: "Civil Engineering", studyLanguage: "English", durationMonths: 48, applicationFeeMinor: 2000, tuitionMinor: 160000, discountedTuitionMinor: 96000, currency: "USD", name: "Civil Engineering", overview: "A practice-oriented civil engineering degree with structural and geotechnical specializations." },
+      { slug: "english-language-program", degreeLevel: "LANGUAGE", field: "Languages", major: "English Preparatory Program", studyLanguage: "English", durationMonths: 8, applicationFeeMinor: 0, tuitionMinor: 40000, currency: "USD", name: "English Preparatory Program", overview: "An intensive English program preparing students for undergraduate or graduate study." },
+      { slug: "business-administration-masters-gau", degreeLevel: "MASTERS", field: "Business", major: "Business Administration", studyLanguage: "English", durationMonths: 18, applicationFeeMinor: 2000, tuitionMinor: 145000, currency: "USD", name: "Business Administration (MBA)", overview: "A flexible MBA with evening classes designed for working professionals." },
+    ],
+  },
+  {
+    slug: "university-of-bedfordshire",
+    countrySlug: "united-kingdom",
+    city: "London",
+    type: "PUBLIC",
+    rankingGlobal: 1201,
+    accreditations: ["QAA", "UK NARIC"],
+    scholarshipsAvailable: true,
+    admissionStatus: "OPEN",
+    startingTuitionMinor: 1300000,
+    currency: "USD",
+    websiteUrl: "https://example.edu/bedfordshire",
+    foundedYear: 1882,
+    isFeatured: false,
+    name: "University of Bedfordshire",
+    aboutText: "A UK public university with London-area campuses and strong pathway programs for international students.",
+    admissionRequirements: "Secondary school certificate, IELTS, personal statement.",
+    languageRequirements: "IELTS 6.0 direct entry; foundation and pre-sessional pathways available below that.",
+    accommodationInfo: "Managed student halls across all campuses, guaranteed for first-year international students.",
+    studentLife: "Diverse international student body, career-focused student services.",
+    programs: [
+      { slug: "foundation-year-business", degreeLevel: "FOUNDATION", field: "Business", major: "Business Foundation Year", studyLanguage: "English", durationMonths: 9, applicationFeeMinor: 0, tuitionMinor: 900000, currency: "USD", name: "Business Foundation Year", overview: "A bridging year preparing international students for undergraduate business study in the UK." },
+      { slug: "diploma-in-it", degreeLevel: "DIPLOMA", field: "Engineering", major: "Information Technology", studyLanguage: "English", durationMonths: 12, applicationFeeMinor: 0, tuitionMinor: 1000000, currency: "USD", name: "Diploma in Information Technology", overview: "A practical IT diploma covering networking, systems administration, and web development." },
+      { slug: "mba-masters-bedfordshire", degreeLevel: "MASTERS", field: "Business", major: "MBA", studyLanguage: "English", durationMonths: 12, applicationFeeMinor: 0, tuitionMinor: 1450000, currency: "USD", name: "MBA", overview: "A globally focused MBA with options for a placement year in UK industry." },
+      { slug: "nursing-bachelors", degreeLevel: "BACHELORS", field: "Health Sciences", major: "Nursing", studyLanguage: "English", durationMonths: 36, applicationFeeMinor: 0, tuitionMinor: 1350000, currency: "USD", name: "Nursing", overview: "An NMC-recognized nursing degree combining clinical placements with academic study." },
+    ],
+  },
+  {
+    slug: "boston-global-institute",
+    countrySlug: "united-states",
+    city: "Boston",
+    type: "PRIVATE",
+    rankingNational: 45,
+    accreditations: ["NEASC"],
+    scholarshipsAvailable: true,
+    admissionStatus: "OPEN",
+    startingTuitionMinor: 2400000,
+    currency: "USD",
+    websiteUrl: "https://example.edu/boston-global",
+    foundedYear: 1998,
+    isFeatured: false,
+    name: "Boston Global Institute",
+    aboutText: "A mid-sized private institute in the Boston area known for business and computer science programs with strong internship pipelines into local employers.",
+    admissionRequirements: "High school diploma or Bachelor's degree (for graduate programs), SAT/ACT optional, English proficiency.",
+    languageRequirements: "IELTS 6.5/TOEFL 90, or a conditional admission pathway with an English bridge program.",
+    accommodationInfo: "On-campus residence halls guaranteed for first-year international students.",
+    studentLife: "Access to Boston's wider student ecosystem, career fairs, and 40+ student organizations.",
+    programs: [
+      { slug: "computer-science-bachelors-boston", degreeLevel: "BACHELORS", field: "Engineering", major: "Computer Science", studyLanguage: "English", durationMonths: 48, applicationFeeMinor: 7500, tuitionMinor: 2500000, discountedTuitionMinor: 2000000, currency: "USD", featured: true, name: "Computer Science", overview: "A comprehensive CS degree with tracks in software engineering, data science, and cybersecurity." },
+      { slug: "mba-masters-boston", degreeLevel: "MASTERS", field: "Business", major: "MBA", studyLanguage: "English", durationMonths: 18, applicationFeeMinor: 10000, tuitionMinor: 3800000, currency: "USD", name: "MBA", overview: "A part-time-friendly MBA with concentrations in finance, marketing, and entrepreneurship." },
+      { slug: "data-analytics-certificate-boston", degreeLevel: "CERTIFICATE", field: "Engineering", major: "Data Analytics", studyLanguage: "English", durationMonths: 6, applicationFeeMinor: 2000, tuitionMinor: 450000, currency: "USD", name: "Data Analytics Certificate", overview: "A short, intensive certificate covering applied statistics, dashboards, and SQL for working professionals." },
+    ],
+  },
+  {
+    slug: "toronto-metropolitan-college",
+    countrySlug: "canada",
+    city: "Toronto",
+    type: "PUBLIC",
+    rankingNational: 15,
+    accreditations: ["CICIC"],
+    scholarshipsAvailable: true,
+    admissionStatus: "OPEN",
+    startingTuitionMinor: 1800000,
+    currency: "USD",
+    websiteUrl: "https://example.edu/toronto-metropolitan",
+    foundedYear: 1978,
+    isFeatured: true,
+    name: "Toronto Metropolitan College",
+    aboutText: "A public college in downtown Toronto with a strong co-op program that places international students directly with Canadian employers during their studies.",
+    admissionRequirements: "Secondary school diploma, English proficiency, program-specific prerequisites.",
+    languageRequirements: "IELTS 6.5 or equivalent; conditional admission available with an English pathway program.",
+    accommodationInfo: "Residence guaranteed for first-year international students; homestay options also available.",
+    studentLife: "Mandatory co-op placements, downtown Toronto campus, large international student office.",
+    programs: [
+      { slug: "business-management-bachelors-toronto", degreeLevel: "BACHELORS", field: "Business", major: "Business Management", studyLanguage: "English", durationMonths: 48, applicationFeeMinor: 6000, tuitionMinor: 1900000, currency: "USD", featured: true, name: "Business Management", overview: "A co-op-integrated business degree with two paid work terms in Canadian companies." },
+      { slug: "information-technology-diploma-toronto", degreeLevel: "DIPLOMA", field: "Engineering", major: "Information Technology", studyLanguage: "English", durationMonths: 24, applicationFeeMinor: 6000, tuitionMinor: 1600000, currency: "USD", name: "Information Technology Diploma", overview: "A two-year applied IT diploma covering networking, cloud computing, and IT support." },
+      { slug: "business-studies-associate-toronto", degreeLevel: "ASSOCIATE", field: "Business", major: "Business Studies", studyLanguage: "English", durationMonths: 20, applicationFeeMinor: 6000, tuitionMinor: 1400000, currency: "USD", name: "Associate of Business Studies", overview: "A two-year associate degree covering core business fundamentals, transferable into the Business Management Bachelor's." },
+    ],
+  },
+];

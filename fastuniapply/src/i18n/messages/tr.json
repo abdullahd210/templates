@@ -1,0 +1,83 @@
+{
+  "brand": {
+    "name": "FastUniApply",
+    "slogan": "Üniversiteye Hızlı Kabul Yolunuz"
+  },
+  "nav": {
+    "universities": "Üniversiteler",
+    "programs": "Programlar",
+    "scholarships": "Burslar",
+    "studyDestinations": "Eğitim Ülkeleri",
+    "articles": "Makaleler",
+    "about": "Hakkımızda",
+    "contact": "İletişim",
+    "login": "Giriş Yap",
+    "getStarted": "Başla",
+    "dashboard": "Panel"
+  },
+  "cta": {
+    "findUniversity": "Üniversite Bul",
+    "explorePrograms": "Programları Keşfet",
+    "startApplication": "Başvurunu Başlat",
+    "getConsultation": "Ücretsiz Danışmanlık Al",
+    "applyNow": "Şimdi Başvur",
+    "requestConsultation": "Danışmanlık Talep Et",
+    "viewDetails": "Detayları Gör",
+    "addToFavorites": "Favorilere Ekle",
+    "compare": "Karşılaştır",
+    "downloadBrochure": "Broşürü İndir",
+    "readMore": "Devamını Oku",
+    "viewAll": "Tümünü Gör",
+    "subscribe": "Abone Ol"
+  },
+  "home": {
+    "heroTitle": "Üniversiteye Hızlı Kabul Yolunuz",
+    "heroSubtitle": "Üniversiteleri keşfedin, programları karşılaştırın ve uzman rehberliğiyle başvurun.",
+    "searchPlaceholder": "Üniversite, program veya ülke ara",
+    "statsUniversities": "Ortak Üniversiteler",
+    "statsPrograms": "Mevcut Programlar",
+    "statsCountries": "Ülkeler",
+    "statsApplications": "Başarılı Başvurular",
+    "featuredUniversities": "Öne Çıkan Üniversiteler",
+    "popularDestinations": "Popüler Eğitim Ülkeleri",
+    "featuredPrograms": "Öne Çıkan Programlar",
+    "latestScholarships": "Son Burslar",
+    "howItWorks": "FastUniApply Nasıl Çalışır",
+    "whyChooseUs": "Öğrenciler Neden FastUniApply'ı Seçiyor",
+    "testimonials": "Öğrencilerimiz Ne Diyor",
+    "partners": "Ortak Üniversitelerimiz",
+    "latestArticles": "Son Makaleler",
+    "faq": "Sıkça Sorulan Sorular",
+    "newsletterTitle": "Güncel Kalın",
+    "newsletterSubtitle": "En son burs ve başvuru ipuçlarını e-postanıza alın."
+  },
+  "common": {
+    "loading": "Yükleniyor…",
+    "noResults": "Sonuç bulunamadı",
+    "seeMore": "Daha fazla göster",
+    "seeLess": "Daha az göster",
+    "filters": "Filtreler",
+    "sortBy": "Sıralama",
+    "currency": "Para birimi",
+    "language": "Dil"
+  },
+  "auth": {
+    "loginTitle": "FastUniApply'a giriş yap",
+    "loginSubtitle": "Başvurularını, belgelerini ve danışmanlıklarını takip et.",
+    "registerTitle": "FastUniApply hesabı oluştur",
+    "registerSubtitle": "Üniversiteleri keşfetmeye ve başvurularını takip etmeye başla.",
+    "fullName": "Ad Soyad",
+    "email": "E-posta",
+    "password": "Şifre",
+    "confirmPassword": "Şifreyi onayla",
+    "termsAgreement": "Kullanım Koşulları ve Gizlilik Politikası'nı kabul ediyorum.",
+    "signIn": "Giriş Yap",
+    "signingIn": "Giriş yapılıyor…",
+    "createAccount": "Hesap Oluştur",
+    "creatingAccount": "Hesap oluşturuluyor…",
+    "noAccount": "Hesabın yok mu?",
+    "createOne": "Hesap oluştur",
+    "haveAccount": "Zaten hesabın var mı?",
+    "invalidCredentials": "Geçersiz e-posta veya şifre."
+  }
+}

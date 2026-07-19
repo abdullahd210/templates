@@ -1,0 +1,33 @@
+export const countriesSeed = [
+  { isoCode: "TR", slug: "turkiye", name: "Türkiye", callingCode: "+90" },
+  { isoCode: "HU", slug: "hungary", name: "Hungary", callingCode: "+36" },
+  { isoCode: "DE", slug: "germany", name: "Germany", callingCode: "+49" },
+  { isoCode: "PL", slug: "poland", name: "Poland", callingCode: "+48" },
+  { isoCode: "IT", slug: "italy", name: "Italy", callingCode: "+39" },
+  { isoCode: "MY", slug: "malaysia", name: "Malaysia", callingCode: "+60" },
+  { isoCode: "GB", slug: "united-kingdom", name: "United Kingdom", callingCode: "+44" },
+  { isoCode: "US", slug: "united-states", name: "United States", callingCode: "+1" },
+  { isoCode: "CA", slug: "canada", name: "Canada", callingCode: "+1" },
+  { isoCode: "CY", slug: "cyprus", name: "Cyprus", callingCode: "+357" },
+  { isoCode: "AE", slug: "united-arab-emirates", name: "United Arab Emirates", callingCode: "+971" },
+] as const;
+
+export const citiesSeed: { countrySlug: string; name: string }[] = [
+  { countrySlug: "turkiye", name: "Istanbul" },
+  { countrySlug: "turkiye", name: "Ankara" },
+  { countrySlug: "hungary", name: "Budapest" },
+  { countrySlug: "hungary", name: "Debrecen" },
+  { countrySlug: "germany", name: "Berlin" },
+  { countrySlug: "germany", name: "Munich" },
+  { countrySlug: "poland", name: "Warsaw" },
+  { countrySlug: "poland", name: "Krakow" },
+  { countrySlug: "italy", name: "Rome" },
+  { countrySlug: "italy", name: "Milan" },
+  { countrySlug: "malaysia", name: "Kuala Lumpur" },
+  { countrySlug: "united-kingdom", name: "London" },
+  { countrySlug: "united-kingdom", name: "Manchester" },
+  { countrySlug: "united-states", name: "Boston" },
+  { countrySlug: "canada", name: "Toronto" },
+  { countrySlug: "cyprus", name: "Nicosia" },
+  { countrySlug: "united-arab-emirates", name: "Dubai" },
+];
