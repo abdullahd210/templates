@@ -1,4 +1,4 @@
-import { PrismaClient, type DegreeLevel } from "@prisma/client";
+import { PrismaClient, type DegreeLevel, type EligibilityCriteriaType } from "@prisma/client";
 import argon2 from "argon2";
 import { countriesSeed, citiesSeed } from "./countries";
 import { universitiesSeed } from "./universities";
@@ -8,8 +8,27 @@ import { documentTypesSeed, leadSourcesSeed, rolesSeed, permissionsSeed, rolePer
 import { testimonialsSeed } from "./testimonials";
 import { countryGuidesSeed } from "./country-guides";
 import { faqsSeed } from "./faqs";
+import {
+  universityRankingsSeed,
+  universityAccreditationsSeed,
+  universityGallerySeed,
+  universityIntakesSeed,
+} from "./university-extras";
+import { universityFaqsSeed } from "./university-faqs";
+import { scholarshipProgramLinksSeed, scholarshipUniversityLinksSeed } from "./scholarship-links";
+import { localizedUniversitySample, localizedProgramSample, localizedScholarshipSample } from "./localized-samples";
 
 const prisma = new PrismaClient();
+
+/** Local slugify (kebab-case) — kept independent of src/lib/utils.ts since the seed script runs outside the app's module resolution/path aliases. */
+function slugifyKey(input: string): string {
+  return input
+    .toLowerCase()
+    .trim()
+    .replace(/[^\w\s-]/g, "")
+    .replace(/[\s_]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
 
 async function seedReferenceData() {
   await prisma.documentType.createMany({
@@ -100,6 +119,17 @@ async function seedUniversitiesAndPrograms() {
     }
 
     for (const p of u.programs) {
+      const academicField = await prisma.academicField.upsert({
+        where: { key: slugifyKey(p.field) },
+        update: {},
+        create: { key: slugifyKey(p.field), name: p.field },
+      });
+      const major = await prisma.major.upsert({
+        where: { key: slugifyKey(`${p.field}-${p.major}`) },
+        update: {},
+        create: { key: slugifyKey(`${p.field}-${p.major}`), name: p.major, academicFieldId: academicField.id },
+      });
+
       await prisma.program.upsert({
         where: { slug: p.slug },
         update: {},
@@ -109,6 +139,8 @@ async function seedUniversitiesAndPrograms() {
           degreeLevel: p.degreeLevel as DegreeLevel,
           field: p.field,
           major: p.major,
+          academicFieldId: academicField.id,
+          majorId: major.id,
           studyLanguage: p.studyLanguage,
           durationMonths: p.durationMonths,
           applicationFeeMinor: p.applicationFeeMinor,
@@ -137,6 +169,86 @@ async function seedUniversitiesAndPrograms() {
     }
   }
   console.log(`✓ Universities: ${universitiesSeed.length}, Programs: ${programCount}`);
+}
+
+async function seedUniversityExtras() {
+  let rankings = 0;
+  for (const r of universityRankingsSeed) {
+    const university = await prisma.university.findUnique({ where: { slug: r.universitySlug } });
+    if (!university) continue;
+    const existing = await prisma.universityRanking.findFirst({
+      where: { universityId: university.id, source: r.source, year: r.year, rankType: r.rankType },
+    });
+    if (existing) continue;
+    await prisma.universityRanking.create({
+      data: { universityId: university.id, source: r.source, year: r.year, rank: r.rank, rankType: r.rankType },
+    });
+    rankings++;
+  }
+
+  let accreditations = 0;
+  for (const a of universityAccreditationsSeed) {
+    const university = await prisma.university.findUnique({ where: { slug: a.universitySlug } });
+    if (!university) continue;
+    const existing = await prisma.universityAccreditation.findFirst({
+      where: { universityId: university.id, name: a.name },
+    });
+    if (existing) continue;
+    await prisma.universityAccreditation.create({
+      data: { universityId: university.id, name: a.name, issuingBody: a.issuingBody, year: a.year },
+    });
+    accreditations++;
+  }
+
+  let galleryImages = 0;
+  for (const g of universityGallerySeed) {
+    const university = await prisma.university.findUnique({ where: { slug: g.universitySlug } });
+    if (!university) continue;
+    const existing = await prisma.universityGallery.findFirst({
+      where: { universityId: university.id, imageUrl: g.imageUrl },
+    });
+    if (existing) continue;
+    await prisma.universityGallery.create({
+      data: { universityId: university.id, imageUrl: g.imageUrl, caption: g.caption, sortOrder: g.sortOrder },
+    });
+    galleryImages++;
+  }
+
+  let intakes = 0;
+  for (const i of universityIntakesSeed) {
+    const university = await prisma.university.findUnique({ where: { slug: i.universitySlug } });
+    if (!university) continue;
+    const existing = await prisma.universityIntake.findFirst({ where: { universityId: university.id, label: i.label } });
+    if (existing) continue;
+    await prisma.universityIntake.create({
+      data: {
+        universityId: university.id,
+        label: i.label,
+        startDate: new Date(i.startDate),
+        applicationDeadline: new Date(i.applicationDeadline),
+        status: i.status,
+      },
+    });
+    intakes++;
+  }
+
+  console.log(`✓ University extras: ${rankings} rankings, ${accreditations} accreditations, ${galleryImages} gallery images, ${intakes} intakes`);
+}
+
+async function seedUniversityFaqs() {
+  let count = 0;
+  for (const f of universityFaqsSeed) {
+    const university = await prisma.university.findUnique({ where: { slug: f.universitySlug } });
+    if (!university) continue;
+    const existing = await prisma.fAQ.findFirst({ where: { context: "university", contextId: university.id, order: f.order } });
+    if (existing) continue;
+    const faq = await prisma.fAQ.create({ data: { context: "university", contextId: university.id, order: f.order } });
+    await prisma.fAQTranslation.create({
+      data: { faqId: faq.id, locale: "en", question: f.question, answer: f.answer },
+    });
+    count++;
+  }
+  console.log(`✓ University FAQs: ${count}`);
 }
 
 async function seedCountryGuides() {
@@ -182,13 +294,14 @@ async function seedFaqs() {
 }
 
 async function seedScholarships() {
+  let eligibilityRows = 0;
   for (const s of scholarshipsSeed) {
     const university = s.universitySlug
       ? await prisma.university.findUnique({ where: { slug: s.universitySlug } })
       : null;
     const country = s.countrySlug ? await prisma.country.findUnique({ where: { slug: s.countrySlug } }) : null;
 
-    await prisma.scholarship.upsert({
+    const scholarship = await prisma.scholarship.upsert({
       where: { slug: s.slug },
       update: {},
       create: {
@@ -216,8 +329,94 @@ async function seedScholarships() {
         },
       },
     });
+
+    // Structured eligibility criteria, auto-derived from the scalar
+    // eligibleDegreeLevels/eligibleNationalities arrays above — gives the
+    // ScholarshipEligibility model real rows without hand-duplicating data
+    // that's already authored once per scholarship.
+    const criteria: { criteriaType: EligibilityCriteriaType; value: string }[] = [
+      ...s.eligibleDegreeLevels.map((level) => ({ criteriaType: "DEGREE_LEVEL" as EligibilityCriteriaType, value: level })),
+      ...s.eligibleNationalities.map((nat) => ({ criteriaType: "NATIONALITY" as EligibilityCriteriaType, value: nat })),
+    ];
+    for (const c of criteria) {
+      const existing = await prisma.scholarshipEligibility.findFirst({
+        where: { scholarshipId: scholarship.id, criteriaType: c.criteriaType, value: c.value },
+      });
+      if (existing) continue;
+      await prisma.scholarshipEligibility.create({
+        data: { scholarshipId: scholarship.id, criteriaType: c.criteriaType, value: c.value },
+      });
+      eligibilityRows++;
+    }
   }
-  console.log(`✓ Scholarships: ${scholarshipsSeed.length}`);
+  console.log(`✓ Scholarships: ${scholarshipsSeed.length}, eligibility criteria: ${eligibilityRows}`);
+}
+
+async function seedScholarshipLinks() {
+  let programLinks = 0;
+  for (const link of scholarshipProgramLinksSeed) {
+    const scholarship = await prisma.scholarship.findUnique({ where: { slug: link.scholarshipSlug } });
+    const program = await prisma.program.findUnique({ where: { slug: link.programSlug } });
+    if (!scholarship || !program) continue;
+    await prisma.scholarshipProgram.upsert({
+      where: { scholarshipId_programId: { scholarshipId: scholarship.id, programId: program.id } },
+      update: {},
+      create: { scholarshipId: scholarship.id, programId: program.id },
+    });
+    programLinks++;
+  }
+
+  let universityLinks = 0;
+  for (const link of scholarshipUniversityLinksSeed) {
+    const scholarship = await prisma.scholarship.findUnique({ where: { slug: link.scholarshipSlug } });
+    const university = await prisma.university.findUnique({ where: { slug: link.universitySlug } });
+    if (!scholarship || !university) continue;
+    await prisma.scholarshipUniversity.upsert({
+      where: { scholarshipId_universityId: { scholarshipId: scholarship.id, universityId: university.id } },
+      update: {},
+      create: { scholarshipId: scholarship.id, universityId: university.id },
+    });
+    universityLinks++;
+  }
+
+  console.log(`✓ Scholarship links: ${programLinks} program links, ${universityLinks} university links`);
+}
+
+async function seedLocalizedSamples() {
+  const university = await prisma.university.findUnique({ where: { slug: localizedUniversitySample.slug } });
+  if (university) {
+    for (const t of localizedUniversitySample.translations) {
+      await prisma.universityTranslation.upsert({
+        where: { universityId_locale: { universityId: university.id, locale: t.locale } },
+        update: {},
+        create: { universityId: university.id, ...t },
+      });
+    }
+  }
+
+  const program = await prisma.program.findUnique({ where: { slug: localizedProgramSample.slug } });
+  if (program) {
+    for (const t of localizedProgramSample.translations) {
+      await prisma.programTranslation.upsert({
+        where: { programId_locale: { programId: program.id, locale: t.locale } },
+        update: {},
+        create: { programId: program.id, ...t },
+      });
+    }
+  }
+
+  const scholarship = await prisma.scholarship.findUnique({ where: { slug: localizedScholarshipSample.slug } });
+  if (scholarship) {
+    for (const t of localizedScholarshipSample.translations) {
+      await prisma.scholarshipTranslation.upsert({
+        where: { scholarshipId_locale: { scholarshipId: scholarship.id, locale: t.locale } },
+        update: {},
+        create: { scholarshipId: scholarship.id, ...t },
+      });
+    }
+  }
+
+  console.log("✓ Localized samples: ar/tr translations for 1 university, 1 program, 1 scholarship");
 }
 
 async function seedContentAndStaff() {
@@ -428,9 +627,13 @@ async function main() {
   await seedReferenceData();
   await seedGeography();
   await seedUniversitiesAndPrograms();
+  await seedUniversityExtras();
+  await seedUniversityFaqs();
   await seedCountryGuides();
   await seedFaqs();
   await seedScholarships();
+  await seedScholarshipLinks();
+  await seedLocalizedSamples();
   await seedContentAndStaff();
   const { consultant, officer } = await seedStaffConsultantsAndOfficers();
   await seedStudentsLeadsAndApplications(consultant.id, officer.id);

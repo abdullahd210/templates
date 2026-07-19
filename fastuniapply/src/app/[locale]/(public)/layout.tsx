@@ -2,6 +2,7 @@ import { setRequestLocale } from "next-intl/server";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { WhatsAppButton } from "@/components/layout/whatsapp-button";
+import { CompareTray } from "@/components/catalog/compare-tray";
 import type { AppLocale } from "@/i18n/config";
 
 export default function PublicLayout({
@@ -19,6 +20,7 @@ export default function PublicLayout({
       <main className="flex-1">{children}</main>
       <Footer locale={locale} />
       <WhatsAppButton />
+      <CompareTray locale={locale} />
     </div>
   );
 }

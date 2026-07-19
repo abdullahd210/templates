@@ -3,11 +3,13 @@ export interface ProgramSeed {
   degreeLevel:
     | "FOUNDATION"
     | "DIPLOMA"
+    | "ASSOCIATE"
     | "BACHELORS"
     | "MASTERS"
     | "PHD"
     | "MEDICAL_SPECIALIZATION"
-    | "LANGUAGE";
+    | "LANGUAGE"
+    | "CERTIFICATE";
   field: string;
   major: string;
   studyLanguage: string;
@@ -354,6 +356,58 @@ export const universitiesSeed: UniversitySeed[] = [
       { slug: "diploma-in-it", degreeLevel: "DIPLOMA", field: "Engineering", major: "Information Technology", studyLanguage: "English", durationMonths: 12, applicationFeeMinor: 0, tuitionMinor: 1000000, currency: "USD", name: "Diploma in Information Technology", overview: "A practical IT diploma covering networking, systems administration, and web development." },
       { slug: "mba-masters-bedfordshire", degreeLevel: "MASTERS", field: "Business", major: "MBA", studyLanguage: "English", durationMonths: 12, applicationFeeMinor: 0, tuitionMinor: 1450000, currency: "USD", name: "MBA", overview: "A globally focused MBA with options for a placement year in UK industry." },
       { slug: "nursing-bachelors", degreeLevel: "BACHELORS", field: "Health Sciences", major: "Nursing", studyLanguage: "English", durationMonths: 36, applicationFeeMinor: 0, tuitionMinor: 1350000, currency: "USD", name: "Nursing", overview: "An NMC-recognized nursing degree combining clinical placements with academic study." },
+    ],
+  },
+  {
+    slug: "boston-global-institute",
+    countrySlug: "united-states",
+    city: "Boston",
+    type: "PRIVATE",
+    rankingNational: 45,
+    accreditations: ["NEASC"],
+    scholarshipsAvailable: true,
+    admissionStatus: "OPEN",
+    startingTuitionMinor: 2400000,
+    currency: "USD",
+    websiteUrl: "https://example.edu/boston-global",
+    foundedYear: 1998,
+    isFeatured: false,
+    name: "Boston Global Institute",
+    aboutText: "A mid-sized private institute in the Boston area known for business and computer science programs with strong internship pipelines into local employers.",
+    admissionRequirements: "High school diploma or Bachelor's degree (for graduate programs), SAT/ACT optional, English proficiency.",
+    languageRequirements: "IELTS 6.5/TOEFL 90, or a conditional admission pathway with an English bridge program.",
+    accommodationInfo: "On-campus residence halls guaranteed for first-year international students.",
+    studentLife: "Access to Boston's wider student ecosystem, career fairs, and 40+ student organizations.",
+    programs: [
+      { slug: "computer-science-bachelors-boston", degreeLevel: "BACHELORS", field: "Engineering", major: "Computer Science", studyLanguage: "English", durationMonths: 48, applicationFeeMinor: 7500, tuitionMinor: 2500000, discountedTuitionMinor: 2000000, currency: "USD", featured: true, name: "Computer Science", overview: "A comprehensive CS degree with tracks in software engineering, data science, and cybersecurity." },
+      { slug: "mba-masters-boston", degreeLevel: "MASTERS", field: "Business", major: "MBA", studyLanguage: "English", durationMonths: 18, applicationFeeMinor: 10000, tuitionMinor: 3800000, currency: "USD", name: "MBA", overview: "A part-time-friendly MBA with concentrations in finance, marketing, and entrepreneurship." },
+      { slug: "data-analytics-certificate-boston", degreeLevel: "CERTIFICATE", field: "Engineering", major: "Data Analytics", studyLanguage: "English", durationMonths: 6, applicationFeeMinor: 2000, tuitionMinor: 450000, currency: "USD", name: "Data Analytics Certificate", overview: "A short, intensive certificate covering applied statistics, dashboards, and SQL for working professionals." },
+    ],
+  },
+  {
+    slug: "toronto-metropolitan-college",
+    countrySlug: "canada",
+    city: "Toronto",
+    type: "PUBLIC",
+    rankingNational: 15,
+    accreditations: ["CICIC"],
+    scholarshipsAvailable: true,
+    admissionStatus: "OPEN",
+    startingTuitionMinor: 1800000,
+    currency: "USD",
+    websiteUrl: "https://example.edu/toronto-metropolitan",
+    foundedYear: 1978,
+    isFeatured: true,
+    name: "Toronto Metropolitan College",
+    aboutText: "A public college in downtown Toronto with a strong co-op program that places international students directly with Canadian employers during their studies.",
+    admissionRequirements: "Secondary school diploma, English proficiency, program-specific prerequisites.",
+    languageRequirements: "IELTS 6.5 or equivalent; conditional admission available with an English pathway program.",
+    accommodationInfo: "Residence guaranteed for first-year international students; homestay options also available.",
+    studentLife: "Mandatory co-op placements, downtown Toronto campus, large international student office.",
+    programs: [
+      { slug: "business-management-bachelors-toronto", degreeLevel: "BACHELORS", field: "Business", major: "Business Management", studyLanguage: "English", durationMonths: 48, applicationFeeMinor: 6000, tuitionMinor: 1900000, currency: "USD", featured: true, name: "Business Management", overview: "A co-op-integrated business degree with two paid work terms in Canadian companies." },
+      { slug: "information-technology-diploma-toronto", degreeLevel: "DIPLOMA", field: "Engineering", major: "Information Technology", studyLanguage: "English", durationMonths: 24, applicationFeeMinor: 6000, tuitionMinor: 1600000, currency: "USD", name: "Information Technology Diploma", overview: "A two-year applied IT diploma covering networking, cloud computing, and IT support." },
+      { slug: "business-studies-associate-toronto", degreeLevel: "ASSOCIATE", field: "Business", major: "Business Studies", studyLanguage: "English", durationMonths: 20, applicationFeeMinor: 6000, tuitionMinor: 1400000, currency: "USD", name: "Associate of Business Studies", overview: "A two-year associate degree covering core business fundamentals, transferable into the Business Management Bachelor's." },
     ],
   },
 ];

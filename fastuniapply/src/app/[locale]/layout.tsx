@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Cairo, Fredoka } from "next/font/google";
+import { Inter, IBM_Plex_Sans_Arabic, Fredoka } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
@@ -12,11 +12,18 @@ import "@/styles/globals.css";
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
 // Fredoka is the brand's actual display typeface (per the official logo
 // file's embedded font) — used for Latin-script locales (en/tr). It has no
-// Arabic glyphs, so Arabic uses Cairo instead: also rounded, and the
-// closest match to Fredoka's voice with native Arabic + Turkish coverage.
-// Which one backs the `--font-display` token is set per-locale below.
+// Arabic glyphs, so Arabic uses IBM Plex Sans Arabic instead (the approved
+// FastUniApply Arabic typeface) for both headings and body copy — Inter
+// has no Arabic glyphs either, so it covers the body-text role Inter plays
+// for en/tr. Which fonts back the `--font-display`/`--font-body` tokens is
+// set per-locale below.
 const fredoka = Fredoka({ subsets: ["latin"], weight: ["500", "600", "700"], variable: "--font-fredoka", display: "swap" });
-const cairo = Cairo({ subsets: ["latin", "arabic"], weight: ["600", "700", "800"], variable: "--font-cairo", display: "swap" });
+const ibmPlexSansArabic = IBM_Plex_Sans_Arabic({
+  subsets: ["arabic"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-ibm-plex-arabic",
+  display: "swap",
+});
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -61,14 +68,15 @@ export default async function LocaleLayout({
   setRequestLocale(locale);
   const [messages, session] = await Promise.all([getMessages(), auth()]);
   const dir = isRtl(locale) ? "rtl" : "ltr";
-  const displayFontVar = isRtl(locale) ? "var(--font-cairo)" : "var(--font-fredoka)";
+  const displayFontVar = isRtl(locale) ? "var(--font-ibm-plex-arabic)" : "var(--font-fredoka)";
+  const bodyFontVar = isRtl(locale) ? "var(--font-ibm-plex-arabic)" : "var(--font-inter)";
 
   return (
     <html
       lang={locale}
       dir={dir}
-      className={`${inter.variable} ${fredoka.variable} ${cairo.variable}`}
-      style={{ "--font-display": displayFontVar } as React.CSSProperties}
+      className={`${inter.variable} ${fredoka.variable} ${ibmPlexSansArabic.variable}`}
+      style={{ "--font-display": displayFontVar, "--font-body": bodyFontVar } as React.CSSProperties}
     >
       <body className="font-sans antialiased">
         <NextIntlClientProvider locale={locale} messages={messages}>

@@ -1,21 +1,19 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { setRequestLocale } from "next-intl/server";
 import type { AppLocale } from "@/i18n/config";
 import { getProgramsBySlugsForComparison } from "@/server/repositories/program.repository";
 import { degreeLevelLabel } from "@/components/catalog/program-card";
 import { EmptyState } from "@/components/shared/empty-state";
+import { ComparisonTable, type ComparisonRow } from "@/components/shared/comparison-table";
 import { formatMoney, formatDate } from "@/lib/format";
+import { MAX_COMPARISON_ITEMS } from "@/validation/comparison.schema";
 import { Scale } from "lucide-react";
 
 export const metadata: Metadata = { title: "Compare Programs" };
 
-interface Row {
-  label: string;
-  render: (p: Awaited<ReturnType<typeof getProgramsBySlugsForComparison>>[number], locale: AppLocale) => React.ReactNode;
-}
+type ComparableProgram = Awaited<ReturnType<typeof getProgramsBySlugsForComparison>>[number];
 
-const rows: Row[] = [
+const rows: ComparisonRow<ComparableProgram>[] = [
   { label: "University", render: (p) => p.university.translation.name },
   { label: "Country", render: (p) => p.university.country.name },
   { label: "Degree Level", render: (p) => degreeLevelLabel[p.degreeLevel] },
@@ -29,6 +27,7 @@ const rows: Row[] = [
     label: "Application Fee",
     render: (p, locale) => (p.applicationFeeMinor > 0 ? formatMoney(p.applicationFeeMinor, p.currency, locale) : "Free"),
   },
+  { label: "Admission Status", render: (p) => p.admissionStatus },
   {
     label: "Next Deadline",
     render: (p, locale) => {
@@ -46,13 +45,13 @@ export default async function ProgramComparePage({
   searchParams: { programs?: string };
 }) {
   setRequestLocale(locale);
-  const slugs = (searchParams.programs ?? "").split(",").filter(Boolean).slice(0, 4);
+  const slugs = (searchParams.programs ?? "").split(",").filter(Boolean).slice(0, MAX_COMPARISON_ITEMS);
   const programs = slugs.length > 0 ? await getProgramsBySlugsForComparison(slugs, locale) : [];
 
   return (
     <div className="container py-12">
       <h1 className="font-display text-3xl font-bold text-primary">Compare Programs</h1>
-      <p className="mt-2 text-muted-foreground">Compare up to 4 programs side by side.</p>
+      <p className="mt-2 text-muted-foreground">Compare up to {MAX_COMPARISON_ITEMS} programs side by side.</p>
 
       {programs.length === 0 ? (
         <EmptyState
@@ -63,33 +62,14 @@ export default async function ProgramComparePage({
           action={{ label: "Browse Programs", href: `/${locale}/programs` }}
         />
       ) : (
-        <div className="mt-8 overflow-x-auto rounded-xl border border-border">
-          <table className="w-full min-w-[640px] border-collapse text-sm">
-            <thead>
-              <tr className="bg-muted/50">
-                <th className="p-4 text-start font-medium text-muted-foreground">&nbsp;</th>
-                {programs.map((p) => (
-                  <th key={p.slug} className="p-4 text-start">
-                    <Link href={`/${locale}/programs/${p.slug}`} className="font-display font-semibold text-primary hover:underline">
-                      {p.translation.name}
-                    </Link>
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {rows.map((row) => (
-                <tr key={row.label} className="border-t border-border">
-                  <td className="p-4 font-medium text-muted-foreground">{row.label}</td>
-                  {programs.map((p) => (
-                    <td key={p.slug} className="p-4">
-                      {row.render(p, locale)}
-                    </td>
-                  ))}
-                </tr>
-              ))}
-            </tbody>
-          </table>
+        <div className="mt-8">
+          <ComparisonTable
+            items={programs}
+            rows={rows}
+            locale={locale}
+            titleRender={(p) => p.translation.name}
+            hrefBuilder={(p) => `/${locale}/programs/${p.slug}`}
+          />
         </div>
       )}
     </div>

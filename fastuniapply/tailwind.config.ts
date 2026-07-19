@@ -90,11 +90,12 @@ const config: Config = {
         },
       },
       fontFamily: {
-        sans: ["var(--font-inter)", "system-ui", "sans-serif"],
-        // `--font-display` is set per-locale on <html> in the root layout:
-        // Fredoka (the brand's actual wordmark font) for en/tr, Cairo
-        // (native Arabic, same rounded voice) for ar.
-        display: ["var(--font-display)", "var(--font-inter)", "system-ui", "sans-serif"],
+        // `--font-body` and `--font-display` are set per-locale on <html> in
+        // the root layout: Inter body / Fredoka display for en/tr, IBM Plex
+        // Sans Arabic for both roles on ar (the approved FastUniApply
+        // Arabic typeface).
+        sans: ["var(--font-body)", "system-ui", "sans-serif"],
+        display: ["var(--font-display)", "var(--font-body)", "system-ui", "sans-serif"],
       },
       borderRadius: {
         lg: "var(--radius)",

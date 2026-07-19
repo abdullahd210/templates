@@ -7,36 +7,86 @@ admissions operations system, multilingual (English, Arabic, Turkish).
 Architecture, sitemap, roles/permissions, ERD, and roadmap live in [`docs/`](./docs).
 This README covers running what's implemented so far.
 
-## Status: Phase 1 — Infrastructure
+## Status
 
-Phase 1 is complete: project setup, folder structure, global layout, design
-system, database schema, authentication + RBAC foundation, localization with
-RTL, error/loading/empty states, and a minimal working shell — not the public
-marketing site, catalog, or dashboards. Those are Phase 2+ (see
-`docs/08-development-roadmap.md`). See `docs/04-features-list.md` for the
-full ✅/🧱/🗺️ breakdown.
+**Phase 1 (Infrastructure)**, **Phase 2 (Public website & homepage)**, and
+now the **Universities / Academic Programs / Scholarships modules** are
+complete. Student dashboards, application tracking, document management, and
+the admin CRM UI are still Phase 4+ (see `docs/08-development-roadmap.md`) —
+only their backend foundation (schemas/services/permissions) exists so far.
+See `docs/04-features-list.md` for the full ✅/🧱/🗺️ breakdown.
 
-Implemented in this phase:
+Phase 1 — Infrastructure:
 - Next.js App Router + TypeScript project, clean layered folder structure
   (`app/`, `components/`, `server/{auth,actions,...}`, `lib/`, `validation/`)
-- Design system: Tailwind tokens for the brand palette/type scale, 16
-  reusable shadcn/ui-style components (Button, Card, Input, Select, Dialog,
-  Tabs, Toast, Checkbox, Avatar, Alert, Skeleton, etc.)
-- Full Prisma schema modeling every module of the product (60+ entities),
-  migrated and seeded against a real PostgreSQL database
+- Design system: Tailwind tokens for the brand palette/type scale, reusable
+  shadcn/ui-style components (Button, Card, Input, Select, Dialog, Tabs,
+  Toast, Checkbox, Avatar, Alert, Skeleton, etc.)
+- Full Prisma schema modeling every module of the product, migrated and
+  seeded against a real PostgreSQL database
 - Auth.js (NextAuth v5) authentication: Credentials provider + Prisma
   adapter, JWT sessions, working register/login pages and server action
 - Role & permission architecture: a single `rbac-constants.ts` source of
   truth for 14 roles / 22 permissions, consumed by both the seed script and
   runtime `hasRole`/`hasPermission`/`requirePermission` server helpers
-- Localization: next-intl for English/Arabic/Turkish with full RTL mirroring,
-  wired into every page built so far (shell, header, footer, auth screens)
+- Localization: next-intl for English/Arabic/Turkish with full RTL mirroring
 - Error handling: typed `AppError` hierarchy, route-level `error.tsx` /
   `not-found.tsx` / `global-error.tsx` boundaries, reusable `EmptyState` /
   `ErrorState` components, and `loading.tsx` skeletons
 - SEO scaffolding (`sitemap.ts`, `robots.ts`, per-locale metadata)
-- Seed data: 12 universities, 32 programs, 11 scholarships, 11 countries, 12
-  articles, demo staff/students/leads/applications across multiple statuses
+
+### Universities, Academic Programs & Scholarships modules
+
+Full database-backed directory + detail pages for all three catalog types,
+built on the Phase 1 architecture (repository → service → server
+action/page layers, Zod-validated everything):
+
+- **Listing pages** (`/[locale]/universities`, `/programs`, `/scholarships`):
+  server-side search, filters (country, city, type, degree level, study
+  language, tuition range, scholarships, admission status, featured, and
+  module-specific filters like duration/nationality/coverage type), 7 sort
+  modes (relevance, name, tuition asc/desc, newest, deadline, featured
+  first), pagination, active-filter chips, a desktop sidebar + mobile
+  drawer sharing one filter form component, result counts, and empty states.
+  Every filter is parsed through a Zod schema (`src/validation/*-query.schema.ts`)
+  that **silently drops invalid/tampered values instead of throwing** — a
+  malformed URL degrades to "no filter," it never 500s the page.
+- **Detail pages**: cover image, logo, rankings, accreditations, image
+  gallery, campuses, degree levels, tuition/scholarships, admission
+  requirements, intake windows, FAQs, related articles, breadcrumbs +
+  `BreadcrumbList` JSON-LD, and Apply/Consultation CTAs.
+- **Favorites**: authenticated students can save any university/program/
+  scholarship (`Favorite` model, unique per user+type+entity — duplicates
+  are impossible). Unauthenticated clicks redirect to `/login` with a
+  callback URL.
+- **Comparison**: up to 4 universities or 4 programs. Selection works for
+  everyone via a `localStorage`-backed "compare tray" (no login required to
+  build a comparison); `/universities/compare` and `/programs/compare` render
+  a table on desktop and a stacked card-per-item view on mobile. A separate
+  DB-backed `ComparisonList`/`ComparisonItem` layer exists for authenticated
+  cross-device persistence (`saveComparisonAction`).
+- **Admin foundation** (no UI yet, by design): Zod create/update schemas +
+  permission-gated service functions for University/Program/Scholarship/
+  Country/City/AcademicField/Major/Fee/Intake/Requirement/Translation under
+  `src/validation/admin/` and `src/server/services/admin/` — ready for the
+  future admin dashboard to call.
+
+New Prisma models: `UniversityRanking`, `UniversityAccreditation`,
+`UniversityGallery`, `UniversityIntake`, `AcademicField`, `Major`,
+`ScholarshipEligibility`, `ScholarshipUniversity`, `ScholarshipProgram`,
+plus a redesigned `Favorite`/`ComparisonList`/`ComparisonItem`. The
+`DegreeLevel` enum now also includes `ASSOCIATE` and `CERTIFICATE`.
+
+Seed data: 14 universities, 41 programs, 11 scholarships, 11 countries
+(covering Türkiye, Hungary, Germany, Poland, Italy, Malaysia, Cyprus, UK,
+Canada, US, and UAE), rankings/accreditations/gallery images/intakes for a
+representative subset, scholarship↔program and scholarship↔university links,
+auto-derived structured eligibility criteria, and Arabic/Turkish sample
+translations for one university/program/scholarship (demonstrating the
+locale-fallback path — everything else falls back to English). All of it is
+`isDemo: true` and clearly documented as non-verified sample data — see
+[Demo Data Disclosure](#demo-data-disclosure) below. The seed script is
+idempotent (safe to re-run).
 
 ## Getting Started
 
@@ -77,8 +127,27 @@ staff/admin dashboards (and their own login-gated routes) are Phase 5.
 | `npm run test` | Unit/integration tests (Vitest) |
 | `npm run test:e2e` | E2E tests (Playwright) |
 | `npm run db:migrate` | Create/apply a dev migration |
-| `npm run db:seed` | Load demo data (refuses to run if `NODE_ENV=production`) |
+| `npm run db:seed` | Load demo data (refuses to run if `NODE_ENV=production`; idempotent — safe to re-run) |
 | `npm run db:studio` | Prisma Studio |
+
+In a non-interactive environment (CI, this sandbox), `prisma migrate dev`
+fails with "environment is non-interactive." Use instead:
+
+```bash
+npx prisma migrate diff --from-url "$DATABASE_URL" \
+  --to-schema-datamodel prisma/schema.prisma --script \
+  > prisma/migrations/$(date +%Y%m%d%H%M%S)_your_migration_name/migration.sql
+npx prisma migrate deploy
+npx prisma generate
+```
+
+### Testing
+
+`npm run test` runs Vitest (`vitest.config.ts` + `vitest.setup.ts`, which
+loads `.env` via Node's built-in `process.loadEnvFile`). Most tests under
+`src/server/**` and `prisma/seed/**` exercise the real repository/service
+layer against a seeded PostgreSQL database — run `npm run db:seed` first.
+Pure-validation tests (`src/validation/**`) have no DB dependency.
 
 ## Package version choices
 

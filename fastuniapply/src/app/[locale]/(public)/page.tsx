@@ -69,6 +69,7 @@ export default async function HomePage({ params: { locale } }: { params: { local
               key={u.slug}
               locale={locale}
               university={{
+                id: u.id,
                 slug: u.slug,
                 name: u.translation.name,
                 countryName: u.country.name,
@@ -97,6 +98,7 @@ export default async function HomePage({ params: { locale } }: { params: { local
                 key={p.slug}
                 locale={locale}
                 program={{
+                  id: p.id,
                   slug: p.slug,
                   name: p.translation.name,
                   universityName: p.university.translation.name,
@@ -125,6 +127,7 @@ export default async function HomePage({ params: { locale } }: { params: { local
               key={s.slug}
               locale={locale}
               scholarship={{
+                id: s.id,
                 slug: s.slug,
                 title: s.translation.title,
                 providerName: s.translation.providerName ?? s.university?.translation.name ?? "FastUniApply Partner",

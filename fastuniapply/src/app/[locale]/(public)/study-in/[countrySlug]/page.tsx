@@ -102,6 +102,7 @@ export default async function StudyDestinationDetailPage({
                     key={u.slug}
                     locale={locale}
                     university={{
+                      id: u.id,
                       slug: u.slug,
                       name: u.translation.name,
                       countryName: country.name,
@@ -126,6 +127,7 @@ export default async function StudyDestinationDetailPage({
                     key={s.slug}
                     locale={locale}
                     scholarship={{
+                      id: s.id,
                       slug: s.slug,
                       title: s.translation.title,
                       providerName: s.translation.providerName ?? "FastUniApply Partner",

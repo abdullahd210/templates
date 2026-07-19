@@ -5,6 +5,9 @@ import { listUniversities } from "@/server/repositories/university.repository";
 import { listPrograms } from "@/server/repositories/program.repository";
 import { listScholarships } from "@/server/repositories/scholarship.repository";
 import { listArticles } from "@/server/repositories/article.repository";
+import { parseUniversityQuery } from "@/validation/university-query.schema";
+import { parseProgramQuery } from "@/validation/program-query.schema";
+import { parseScholarshipQuery } from "@/validation/scholarship-query.schema";
 import { UniversityCard } from "@/components/catalog/university-card";
 import { ProgramCard } from "@/components/catalog/program-card";
 import { ScholarshipCard } from "@/components/catalog/scholarship-card";
@@ -28,9 +31,9 @@ export default async function SearchPage({
 
   const [universities, programs, scholarships, articles] = q
     ? await Promise.all([
-        listUniversities({ query: q, pageSize: 6 }, locale),
-        listPrograms({ query: q, pageSize: 6 }, locale),
-        listScholarships({ query: q, pageSize: 6 }, locale),
+        listUniversities(parseUniversityQuery({ q }), locale, 6),
+        listPrograms(parseProgramQuery({ q }), locale, 6),
+        listScholarships(parseScholarshipQuery({ q }), locale, 6),
         listArticles({ query: q, pageSize: 6 }, locale),
       ])
     : [null, null, null, null];
@@ -60,13 +63,14 @@ export default async function SearchPage({
       ) : (
         <div className="mt-10 space-y-12">
           {universities && universities.universities.length > 0 && (
-            <ResultSection title="Universities" count={universities.total} href={`/${locale}/universities?query=${q}`}>
+            <ResultSection title="Universities" count={universities.total} href={`/${locale}/universities?q=${q}`}>
               <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                 {universities.universities.map((u) => (
                   <UniversityCard
                     key={u.slug}
                     locale={locale}
                     university={{
+                      id: u.id,
                       slug: u.slug,
                       name: u.translation.name,
                       countryName: u.country.name,
@@ -90,6 +94,7 @@ export default async function SearchPage({
                     key={p.slug}
                     locale={locale}
                     program={{
+                      id: p.id,
                       slug: p.slug,
                       name: p.translation.name,
                       universityName: p.university.translation.name,
@@ -113,6 +118,7 @@ export default async function SearchPage({
                     key={s.slug}
                     locale={locale}
                     scholarship={{
+                      id: s.id,
                       slug: s.slug,
                       title: s.translation.title,
                       providerName: s.translation.providerName ?? s.university?.translation.name ?? "FastUniApply Partner",
